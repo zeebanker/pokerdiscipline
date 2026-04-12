@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<title>Discipline Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --paper: #fafbfc;
+    --navy: #012169;
+    --navy-dark: #001442;
+    --navy-tint: #eef2fa;
+    --ink: #1a1a2e;
+    --ink-2: #4a4e5e;
+    --ink-3: #8a8e9c;
+    --rule: #d4d8e0;
+    --rule-strong: #1a1a2e;
+    --accent: #c8102e;       /* consulting red */
+    --success: #00703c;
+    --warning: #ed8b00;
+    --nav-h: 60px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+  }
+
+  .deck {
+    position: fixed;
+    inset: 0 0 var(--nav-h) 0;
+    overflow: hidden;
+    z-index: 2;
+  }
+  .slides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+  }
+  .slides.dragging { transition: none; }
+
+  .slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    position: relative;
+    background: var(--bg);
+  }
+  .slide-inner {
+    max-width: 520px;
+    margin: 0 auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 22px 28px;
+  }
+
+  /* === SLIDE HEADER BAR === */
+  .slide-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    border-bottom: 2px solid var(--navy);
+    background: var(--bg);
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .slide-head .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .slide-head .bar {
+    width: 3px;
+    height: 14px;
+    background: var(--accent);
+  }
+  .slide-head .right {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+  }
+
+  /* === ACTION TITLE (the key finding) === */
+  .action-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(22px, 6vw, 28px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    padding: 24px 0 16px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 20px;
+  }
+  .action-title em {
+    font-style: italic;
+    color: var(--navy);
+  }
+  .action-title strong {
+    font-weight: 700;
+  }
+
+  .support-line {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+
+  /* === EXHIBIT (content block wrapper) === */
+  .exhibit {
+    margin-bottom: 18px;
+  }
+  .exhibit-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .exhibit-label::before {
+    content: "";
+    width: 14px;
+    height: 2px;
+    background: var(--navy);
+  }
+
+  /* === COVER === */
+  .cover {
+    justify-content: center;
+    padding: 40px 22px !important;
+    position: relative;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    top: 40px;
+    height: 4px;
+    background: var(--navy);
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    left: 22px;
+    top: 44px;
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+  }
+  .cover .client {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-top: 16px;
+    margin-bottom: 60px;
+  }
+  .cover h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(36px, 10vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .cover h1 em { font-style: italic; color: var(--navy); }
+  .cover .sub {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    font-style: italic;
+    margin-bottom: 40px;
+    max-width: 95%;
+  }
+  .cover .default-panel {
+    background: var(--navy);
+    color: white;
+    padding: 22px 24px;
+    margin-bottom: 36px;
+    position: relative;
+  }
+  .cover .default-panel::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--accent);
+  }
+  .cover .default-panel .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
+  }
+  .cover .default-panel .quote {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.3;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .cover .default-panel .caveat {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+  .cover .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .cover .footer .date { color: var(--ink-2); }
+  .cover .footer .conf {
+    padding: 3px 8px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* === BULLET LIST (McKinsey pyramid style) === */
+  .bullets { list-style: none; margin: 4px 0; }
+  .bullets li {
+    padding: 9px 0 9px 22px;
+    font-size: 14px;
+    line-height: 1.45;
+    position: relative;
+    color: var(--ink);
+  }
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 16px;
+    width: 8px;
+    height: 8px;
+    background: var(--navy);
+  }
+  .bullets.danger li::before { background: var(--accent); }
+  .bullets.success li::before { background: var(--success); }
+  .bullets li strong { font-weight: 700; color: var(--ink); }
+
+  /* === KEY TAKEAWAY (bottom of slide) === */
+  .takeaway {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: var(--navy-tint);
+    border-left: 4px solid var(--navy);
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .takeaway .label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .takeaway.warn { background: #fef5f0; border-left-color: var(--accent); }
+  .takeaway.warn .label { color: var(--accent); }
+  .takeaway.go { background: #edf7f1; border-left-color: var(--success); }
+  .takeaway.go .label { color: var(--success); }
+
+  /* === CRITERIA (3-column style, stacked on mobile) === */
+  .criteria-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 4px 0;
+  }
+  .criterion {
+    border: 1px solid var(--rule);
+    padding: 14px 16px 14px 44px;
+    background: var(--paper);
+    position: relative;
+  }
+  .criterion .cnum {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    background: var(--navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .criterion h4 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.25;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .criterion h4 em { font-style: italic; color: var(--navy); }
+  .criterion ul { list-style: none; }
+  .criterion ul li {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding: 1px 0 1px 10px;
+    position: relative;
+  }
+  .criterion ul li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--ink-3);
+  }
+
+  /* === DECISION TREE (shortcut) === */
+  .decision-box {
+    border: 2px solid var(--navy);
+    padding: 20px 22px;
+    background: white;
+    margin: 4px 0;
+  }
+  .decision-box .q-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .decision-box .q {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.3;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+  .decision-box .arrows {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .decision-box .arm {
+    padding: 12px 14px;
+    border: 1px solid var(--rule);
+    font-size: 12px;
+  }
+  .decision-box .arm .if {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .decision-box .arm .then {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+  .decision-box .arm.no { border-left: 3px solid var(--accent); }
+  .decision-box .arm.no .if, .decision-box .arm.no .then { color: var(--accent); }
+  .decision-box .arm.yes { border-left: 3px solid var(--success); }
+  .decision-box .arm.yes .if, .decision-box .arm.yes .then { color: var(--success); }
+
+  /* === DATA TABLE === */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 4px 0;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--navy);
+    font-weight: 700;
+  }
+  .data-table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .data-table tr:nth-child(even) td { background: var(--paper); }
+  .data-table td:first-child { font-weight: 700; width: 36%; color: var(--ink); }
+  .data-table td:nth-child(2) { color: var(--ink-2); }
+  .data-table td:last-child { white-space: nowrap; font-weight: 700; text-align: right; }
+  .data-table .move-call { color: var(--success); }
+  .data-table .move-fold { color: var(--accent); }
+
+  /* === SCRIPT (process flow) === */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 4px 0;
+    counter-reset: step;
+  }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 30px 1fr auto;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--rule);
+    border-top: none;
+    align-items: center;
+    background: white;
+    counter-increment: step;
+  }
+  .flow-step:first-child { border-top: 1px solid var(--rule); }
+  .flow-step::before {
+    content: counter(step);
+    width: 26px;
+    height: 26px;
+    background: var(--navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .flow-step .q { font-size: 13px; font-weight: 500; line-height: 1.3; color: var(--ink); }
+  .flow-step .out {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* === OLD vs NEW === */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 4px 0;
+  }
+  .compare-card {
+    padding: 16px 18px;
+    border: 1px solid var(--rule);
+    background: white;
+  }
+  .compare-card.old {
+    background: var(--paper);
+    opacity: 0.75;
+  }
+  .compare-card.new {
+    border-left: 4px solid var(--navy);
+  }
+  .compare-card .tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .compare-card.old .tag { background: var(--ink-3); color: white; }
+  .compare-card.new .tag { background: var(--navy); color: white; }
+  .compare-card .statement {
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .compare-card.old .statement { text-decoration: line-through; color: var(--ink-3); }
+
+  /* === HERO QUOTE === */
+  .hero-slide {
+    justify-content: center;
+    text-align: left;
+  }
+  .hero-slide .chapter {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+    align-self: flex-start;
+  }
+  .hero-slide .quote {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: clamp(26px, 7vw, 34px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+  .hero-slide .quote-open {
+    font-family: 'Source Serif 4', serif;
+    font-size: 48px;
+    color: var(--navy);
+    line-height: 0;
+    position: relative;
+    top: 18px;
+    margin-right: 4px;
+  }
+  .hero-slide .cite {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* === RESULTS / KPI === */
+  .kpi-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 4px 0;
+  }
+  .kpi {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--rule);
+    background: white;
+  }
+  .kpi .idx {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .kpi .desc {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .kpi .desc .sub {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .kpi .status {
+    background: var(--success);
+    color: white;
+    padding: 4px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* === FOOTNOTE === */
+  .footnote {
+    margin-top: auto;
+    padding-top: 14px;
+    font-size: 10px;
+    color: var(--ink-3);
+    font-style: italic;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* === NAV === */
+  .nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-h);
+    background: var(--bg);
+    border-top: 2px solid var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    z-index: 10;
+  }
+  .nav-btn {
+    background: var(--navy);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 38px;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    line-height: 1;
+  }
+  .nav-btn:hover:not(:disabled) { background: var(--accent); }
+  .nav-btn:active:not(:disabled) { transform: scale(0.95); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; background: var(--ink-3); }
+
+  .progress-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    max-width: 240px;
+  }
+  .progress-group .counter {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--ink-2);
+  }
+  .progress-group .counter .current { color: var(--navy); }
+  .progress-group .bar {
+    width: 100%;
+    height: 3px;
+    background: var(--rule);
+  }
+  .progress-group .fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.35s ease;
+  }
+
+  .slide::-webkit-scrollbar { width: 2px; }
+  .slide::-webkit-scrollbar-thumb { background: var(--rule); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck">
+  <div class="slides" id="slides">
+
+    <!-- 1 COVER -->
+    <div class="slide">
+      <div class="slide-inner cover">
+        <div class="client">Strategy & Operations / Live MTT Practice</div>
+        <h1>The <em>Discipline</em><br>Framework.</h1>
+        <p class="sub">A decision system for eliminating unprofitable river bluffs in low-to-mid stakes live tournaments.</p>
+        <div class="default-panel">
+          <div class="label">Step 00 · The Operating Default</div>
+          <div class="quote">"No river bluff jams unless proven otherwise."</div>
+          <div class="caveat">You are opting out of bluffing, not opting in.</div>
+        </div>
+        <div class="footer">
+          <span class="date">12 Pages · Read in 5 Min</span>
+          <span class="conf">Confidential</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 STEP 1 -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Step 01 · Auto-Blockers</div>
+        <div class="right">02 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">If <em>any</em> of four signals occurred earlier in the hand, <strong>do not jam the river.</strong></h2>
+        <p class="support-line">Each signal independently indicates villain has committed to a one-pair hand they will not release.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Disqualifying signals</div>
+          <ul class="bullets danger">
+            <li>Villain <strong>check-called flop AND turn</strong></li>
+            <li>Villain <strong>led turn</strong></li>
+            <li>Villain <strong>raised turn</strong></li>
+            <li>Villain profiles as a <strong>"curious caller"</strong></li>
+          </ul>
+        </div>
+
+        <div class="takeaway">
+          <span class="label">Key Takeaway</span>
+          They have a pair and are not folding it.
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 STEP 2 -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Step 02 · The Hard Rule</div>
+        <div class="right">03 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Bluffing is only justified when <em>all three</em> criteria are satisfied simultaneously.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Required conditions</div>
+          <div class="criteria-grid">
+            <div class="criterion">
+              <div class="cnum">I</div>
+              <h4>Villain's range is capped</h4>
+              <ul>
+                <li>No strong hands likely</li>
+                <li>Mostly one-pair / weak holdings</li>
+              </ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">II</div>
+              <h4>You hold relevant blockers</h4>
+              <ul>
+                <li>Block strong hands</li>
+                <li>Unblock folds</li>
+              </ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">III</div>
+              <h4>You can name ≥5 realistic folds</h4>
+              <ul>
+                <li>Weak top pair</li>
+                <li>Second pair</li>
+                <li>Missed draws that gave up</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="takeaway warn">
+          <span class="label">If any condition fails</span>
+          Do not bluff.
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 STEP 3 -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Step 03 · Practical Shortcut</div>
+        <div class="right">04 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">A single diagnostic question resolves <em>the majority</em> of marginal bluff spots.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Decision framework</div>
+          <div class="decision-box">
+            <div class="q-label">Ask yourself</div>
+            <div class="q">"Would a random $1K WSOP player fold top pair here?"</div>
+            <div class="arrows">
+              <div class="arm no">
+                <span class="if">If No</span>
+                <span class="then">Check</span>
+              </div>
+              <div class="arm yes">
+                <span class="if">If Yes</span>
+                <span class="then">Proceed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="support-line">This single question eliminates a disproportionate share of negative-EV jams.</p>
+      </div>
+    </div>
+
+    <!-- 5 STEP 4 -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Step 04 · Board + Story</div>
+        <div class="right">05 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Both board texture <em>and</em> betting line must support the story.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Dual requirement</div>
+          <div class="criteria-grid">
+            <div class="criterion">
+              <div class="cnum">I</div>
+              <h4>Board is scary <em>for them</em></h4>
+              <ul>
+                <li>Not just "looks scary" to you</li>
+              </ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">II</div>
+              <h4>Your line makes sense</h4>
+              <ul>
+                <li>Passive line → sudden jam = not believed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="takeaway warn">
+          <span class="label">Population reality</span>
+          Live players rarely believe inconsistent stories.
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 STEP 5 -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Step 05 · Missed Draws</div>
+        <div class="right">06 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Bluffing requires credible, representable missed draws.</h2>
+        <p class="support-line">All three conditions must hold. A single failure invalidates the bluff.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Conditions required</div>
+          <ul class="bullets">
+            <li>Clear <strong>missed draws</strong> exist on the board</li>
+            <li>Villain's range <strong>can contain</strong> those draws</li>
+            <li>You can <strong>represent them logically</strong> given your line</li>
+          </ul>
+        </div>
+
+        <div class="takeaway warn">
+          <span class="label">If not</span>
+          You are blasting into pairs.
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 STEP 6 -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Step 06 · Population Truth Table</div>
+        <div class="right">07 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Map villain's line to its <em>most likely meaning</em> — then adjust.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Exhibit · Decision reference</div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Line</th><th>Typical Meaning</th><th>Response</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Small river bet</td><td>Weak / probing</td><td class="move-call">Call wider</td></tr>
+              <tr><td>Turn aggression</td><td>Usually strong</td><td class="move-fold">Fold more</td></tr>
+              <tr><td>River jam</td><td>Very strong</td><td class="move-fold">Overfold</td></tr>
+              <tr><td>Passive → big river</td><td>Often bluff</td><td class="move-call">Call more</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footnote">Source: Live low/mid-stakes population tendencies.</div>
+      </div>
+    </div>
+
+    <!-- 8 SCRIPT -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>The 5-Second Script</div>
+        <div class="right">08 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Execute this <em>four-question sequence</em> before every river jam.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Decision sequence</div>
+          <div class="flow">
+            <div class="flow-step">
+              <div class="q">Did he show strength earlier?</div>
+              <div class="out">Yes → No Bluff</div>
+            </div>
+            <div class="flow-step">
+              <div class="q">Would he fold top pair?</div>
+              <div class="out">No → No Bluff</div>
+            </div>
+            <div class="flow-step">
+              <div class="q">Can I name 5 folds?</div>
+              <div class="out">No → No Bluff</div>
+            </div>
+            <div class="flow-step">
+              <div class="q">Does my line make sense?</div>
+              <div class="out">No → No Bluff</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="takeaway go">
+          <span class="label">If all 4 pass</span>
+          You may bluff. Expect this to be rare — that is correct.
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 NEW DEFAULT -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Default Line Reset</div>
+        <div class="right">09 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Replace the reflex default. <em>Checking</em> is the new baseline.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Before vs. after</div>
+          <div class="compare">
+            <div class="compare-card old">
+              <span class="tag">Current State</span>
+              <div class="statement">Miss draw → jam</div>
+            </div>
+            <div class="compare-card new">
+              <span class="tag">Target State</span>
+              <div class="statement">Miss draw → check and give up</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="takeaway">
+          <span class="label">Reframe</span>
+          You are not missing spots. You are removing losing plays.
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 GREEN LIGHT -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Permitted Jam Conditions</div>
+        <div class="right">10 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Legitimate bluff jams exist, but satisfy <em>all four</em> criteria.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Green-light requirements</div>
+          <ul class="bullets success">
+            <li>Villain checked <strong>multiple streets</strong></li>
+            <li>Board changed in a way that <strong>hits your range</strong></li>
+            <li>You can <strong>name the folds</strong></li>
+            <li>Villain is <strong>capable of folding</strong></li>
+          </ul>
+        </div>
+
+        <div class="takeaway go">
+          <span class="label">Proceed</span>
+          These are the only real bluff jam spots in your games.
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 HERO QUOTE -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Core Heuristic</div>
+        <div class="right">11 / 12</div>
+      </div>
+      <div class="slide-inner hero-slide">
+        <div class="chapter">The One Thing to Remember</div>
+        <div class="quote">
+          <span class="quote-open">"</span>If they've put money in twice, they're not folding a pair."
+        </div>
+        <div class="cite">Not universally true — profitable to assume.</div>
+      </div>
+    </div>
+
+    <!-- 12 RESULTS -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Expected Impact</div>
+        <div class="right">12 / 12</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Implementing this framework eliminates <em>three recurring leaks.</em></h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Leaks addressed</div>
+          <div class="kpi-grid">
+            <div class="kpi">
+              <div class="idx">I</div>
+              <div class="desc">
+                <span class="sub">Leak 01</span>
+                "Scary board" bluffs
+              </div>
+              <div class="status">Resolved</div>
+            </div>
+            <div class="kpi">
+              <div class="idx">II</div>
+              <div class="desc">
+                <span class="sub">Leak 02</span>
+                "I missed, so I jam"
+              </div>
+              <div class="status">Resolved</div>
+            </div>
+            <div class="kpi">
+              <div class="idx">III</div>
+              <div class="desc">
+                <span class="sub">Leak 03</span>
+                Largest chip leaks
+              </div>
+              <div class="status">Resolved</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footnote">Discipline framework · End of document.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn" id="prev" aria-label="Previous">‹</button>
+  <div class="progress-group">
+    <div class="counter"><span class="current" id="current">01</span> / <span id="total">12</span></div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+  </div>
+  <button class="nav-btn" id="next" aria-label="Next">›</button>
+</nav>
+
+<script>
+  const slidesEl = document.getElementById('slides');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const currentEl = document.getElementById('current');
+  const totalEl = document.getElementById('total');
+  const fillEl = document.getElementById('fill');
+  const slides = slidesEl.querySelectorAll('.slide');
+  const total = slides.length;
+  let idx = 0;
+  totalEl.textContent = String(total).padStart(2,'0');
+
+  function render() {
+    slidesEl.style.transform = `translateX(-${idx * 100}%)`;
+    currentEl.textContent = String(idx + 1).padStart(2,'0');
+    fillEl.style.width = `${((idx + 1) / total) * 100}%`;
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total - 1;
+    slides[idx].scrollTop = 0;
+  }
+  function go(n) { idx = Math.max(0, Math.min(total - 1, n)); render(); }
+  prevBtn.addEventListener('click', () => go(idx - 1));
+  nextBtn.addEventListener('click', () => go(idx + 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') go(idx - 1);
+    if (e.key === 'ArrowRight') go(idx + 1);
+  });
+
+  let startX=0, startY=0, curX=0, drag=false, lock=null;
+  const T = 50;
+  slidesEl.addEventListener('touchstart', e => {
+    startX=e.touches[0].clientX; startY=e.touches[0].clientY; curX=0; drag=true; lock=null;
+  }, {passive:true});
+  slidesEl.addEventListener('touchmove', e => {
+    if(!drag) return;
+    const dx=e.touches[0].clientX-startX, dy=e.touches[0].clientY-startY;
+    if(lock===null && (Math.abs(dx)>10 || Math.abs(dy)>10)) lock = Math.abs(dx)>Math.abs(dy) ? 'x' : 'y';
+    if(lock==='x'){
+      curX=dx;
+      slidesEl.classList.add('dragging');
+      slidesEl.style.transform = `translateX(${-idx*100 + (dx/window.innerWidth)*100}%)`;
+    }
+  }, {passive:true});
+  slidesEl.addEventListener('touchend', () => {
+    if(!drag) return;
+    drag=false;
+    slidesEl.classList.remove('dragging');
+    if(lock==='x'){
+      if(curX<-T && idx<total-1) go(idx+1);
+      else if(curX>T && idx>0) go(idx-1);
+      else render();
+    }
+    lock=null;
+  });
+  render();
+</script>
+
+</body>
+</html>
