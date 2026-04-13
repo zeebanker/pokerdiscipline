@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#ffffff">
-<title>Discipline Framework</title>
+<title>KP's Bluff Discipline Framework</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
     --ink-3: #8a8e9c;
     --rule: #d4d8e0;
     --rule-strong: #1a1a2e;
-    --accent: #c8102e;       /* consulting red */
+    --accent: #c8102e;
     --success: #00703c;
     --warning: #ed8b00;
     --nav-h: 60px;
@@ -71,7 +71,6 @@
     padding: 0 22px 28px;
   }
 
-  /* === SLIDE HEADER BAR === */
   .slide-head {
     display: flex;
     justify-content: space-between;
@@ -105,7 +104,6 @@
     color: var(--ink-3);
   }
 
-  /* === ACTION TITLE (the key finding) === */
   .action-title {
     font-family: 'Source Serif 4', Georgia, serif;
     font-weight: 600;
@@ -117,13 +115,8 @@
     border-bottom: 1px solid var(--rule);
     margin-bottom: 20px;
   }
-  .action-title em {
-    font-style: italic;
-    color: var(--navy);
-  }
-  .action-title strong {
-    font-weight: 700;
-  }
+  .action-title em { font-style: italic; color: var(--navy); }
+  .action-title strong { font-weight: 700; }
 
   .support-line {
     font-size: 13px;
@@ -133,10 +126,7 @@
     font-weight: 500;
   }
 
-  /* === EXHIBIT (content block wrapper) === */
-  .exhibit {
-    margin-bottom: 18px;
-  }
+  .exhibit { margin-bottom: 18px; }
   .exhibit-label {
     font-size: 9px;
     font-weight: 700;
@@ -155,7 +145,6 @@
     background: var(--navy);
   }
 
-  /* === COVER === */
   .cover {
     justify-content: center;
     padding: 40px 22px !important;
@@ -264,7 +253,6 @@
     font-weight: 700;
   }
 
-  /* === BULLET LIST (McKinsey pyramid style) === */
   .bullets { list-style: none; margin: 4px 0; }
   .bullets li {
     padding: 9px 0 9px 22px;
@@ -286,7 +274,6 @@
   .bullets.success li::before { background: var(--success); }
   .bullets li strong { font-weight: 700; color: var(--ink); }
 
-  /* === KEY TAKEAWAY (bottom of slide) === */
   .takeaway {
     margin-top: 16px;
     padding: 14px 16px;
@@ -311,7 +298,6 @@
   .takeaway.go { background: #edf7f1; border-left-color: var(--success); }
   .takeaway.go .label { color: var(--success); }
 
-  /* === CRITERIA (3-column style, stacked on mobile) === */
   .criteria-grid {
     display: flex;
     flex-direction: column;
@@ -362,7 +348,6 @@
     color: var(--ink-3);
   }
 
-  /* === DECISION TREE (shortcut) === */
   .decision-box {
     border: 2px solid var(--navy);
     padding: 20px 22px;
@@ -414,7 +399,6 @@
   .decision-box .arm.yes { border-left: 3px solid var(--success); }
   .decision-box .arm.yes .if, .decision-box .arm.yes .then { color: var(--success); }
 
-  /* === DATA TABLE === */
   .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -444,7 +428,6 @@
   .data-table .move-call { color: var(--success); }
   .data-table .move-fold { color: var(--accent); }
 
-  /* === SCRIPT (process flow) === */
   .flow {
     display: flex;
     flex-direction: column;
@@ -486,7 +469,6 @@
     white-space: nowrap;
   }
 
-  /* === OLD vs NEW === */
   .compare {
     display: grid;
     grid-template-columns: 1fr;
@@ -525,7 +507,6 @@
   }
   .compare-card.old .statement { text-decoration: line-through; color: var(--ink-3); }
 
-  /* === HERO QUOTE === */
   .hero-slide {
     justify-content: center;
     text-align: left;
@@ -571,55 +552,6 @@
     border-top: 1px solid var(--rule);
   }
 
-  /* === RESULTS / KPI === */
-  .kpi-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 4px 0;
-  }
-  .kpi {
-    display: grid;
-    grid-template-columns: 36px 1fr auto;
-    gap: 14px;
-    align-items: center;
-    padding: 14px 16px;
-    border: 1px solid var(--rule);
-    background: white;
-  }
-  .kpi .idx {
-    font-family: 'Source Serif 4', serif;
-    font-weight: 600;
-    font-size: 22px;
-    color: var(--navy);
-    line-height: 1;
-  }
-  .kpi .desc {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.3;
-    color: var(--ink);
-  }
-  .kpi .desc .sub {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .kpi .status {
-    background: var(--success);
-    color: white;
-    padding: 4px 12px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  /* === FOOTNOTE === */
   .footnote {
     margin-top: auto;
     padding-top: 14px;
@@ -629,7 +561,6 @@
     border-top: 1px solid var(--rule);
   }
 
-  /* === NAV === */
   .nav {
     position: fixed;
     bottom: 0;
@@ -702,33 +633,241 @@
 <div class="deck">
   <div class="slides" id="slides">
 
-    <!-- 1 COVER -->
+    <!-- 01 COVER -->
     <div class="slide">
       <div class="slide-inner cover">
-        <div class="client">Strategy & Operations / Live MTT Practice</div>
-        <h1>The <em>Discipline</em><br>Framework.</h1>
-        <p class="sub">A decision system for eliminating unprofitable river bluffs in low-to-mid stakes live tournaments.</p>
+        <div class="client">Strategy &amp; Operations / Live MTT Practice</div>
+        <h1>KP's <em>Bluff Discipline</em><br>Framework.</h1>
+        <p class="sub">A complete decision system for low-to-mid stakes live MTTs. Builds the hand correctly, filters the bluff in the moment, enforces it through redundant layers.</p>
         <div class="default-panel">
-          <div class="label">Step 00 · The Operating Default</div>
+          <div class="label">Operating Default</div>
           <div class="quote">"No river bluff jams unless proven otherwise."</div>
-          <div class="caveat">You are opting out of bluffing, not opting in.</div>
+          <div class="caveat">You are opting out of bluffing, not opting in. Bluffs are earned, never assumed.</div>
         </div>
         <div class="footer">
-          <span class="date">12 Pages · Read in 5 Min</span>
-          <span class="conf">Confidential</span>
+          <span class="date">18 Pages · Read Pre-Session</span>
+          <span class="conf">v2.0 Unified</span>
         </div>
       </div>
     </div>
 
-    <!-- 2 STEP 1 -->
+    <!-- 02 THE THESIS -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Step 01 · Auto-Blockers</div>
-        <div class="right">02 / 23</div>
+        <div class="left"><div class="bar"></div>Thesis</div>
+        <div class="right">02 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">If <em>any</em> of four signals occurred earlier in the hand, <strong>do not jam the river.</strong></h2>
-        <p class="support-line">Each signal independently indicates villain has committed to a one-pair hand they will not release.</p>
+        <h2 class="action-title">The leak has <em>two causes</em>, and both must be addressed.</h2>
+        <p class="support-line">Most frameworks fix only the river decision. That's the symptom. The hand shape that produces the punt is set on the flop.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Dual causation</div>
+          <div class="criteria-grid">
+            <div class="criterion">
+              <div class="cnum">1</div>
+              <h4>Upstream: <em>hand-shape discipline</em></h4>
+              <ul>
+                <li>Under-bet draws when equity is max</li>
+                <li>Arrive at river with no plan</li>
+                <li>Treat past equity as current entitlement</li>
+              </ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">2</div>
+              <h4>Downstream: <em>in-moment discipline</em></h4>
+              <ul>
+                <li>Bluff into capped-at-pair ranges</li>
+                <li>Rep hands you don't have in range</li>
+                <li>Fire against players who don't fold</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="takeaway">
+          <span class="label">Framework structure</span>
+          Part I addresses hand shape. Part II addresses in-moment filters. Part III adds redundancy.
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 PART I DIVIDER -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Part I · Hand-Shape Discipline</div>
+        <div class="right">03 / 18</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Win the hand on the flop and turn, so the river is <em>never a punt spot</em>.</h2>
+        <p class="support-line">Most painful river decisions are the result of incorrect flop and turn play. Fix the cause and the symptom disappears.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Scope of Part I</div>
+          <ul class="bullets">
+            <li>Tag the table <strong>before</strong> you play a pot</li>
+            <li>Press equity <strong>when you have it</strong></li>
+            <li>Bank equity; never treat it as <strong>owed</strong></li>
+            <li>Pre-commit the river plan <strong>on the flop</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 RULE ZERO - TAG THE TABLE -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Rule 00 · Tag the Table</div>
+        <div class="right">04 / 18</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Before any meaningful pot, <em>you already know</em> who folds and who doesn't.</h2>
+        <p class="support-line">Villain classification is a pre-session habit, not a pre-bluff step. Default assumption if untagged: no-fold.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Three player types</div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Type</th><th>Profile</th><th>Bluff Policy</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>A · Curious</td><td>Calls down, "let me see it"</td><td class="move-fold">Never</td></tr>
+              <tr><td>B · Straightforward</td><td>Strong = bet, weak = fold</td><td class="move-call">Clean spots</td></tr>
+              <tr><td>C · Thinking Reg</td><td>Capable of folding</td><td class="move-call">Selective</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="takeaway warn">
+          <span class="label">Rule Zero</span>
+          Any villain who just doubled up with top pair is Type A for the next hour. No exceptions.
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 PRESS EQUITY -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Rule 01 · Press Equity When You Have It</div>
+        <div class="right">05 / 18</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Big draws are <em>bet bigger</em>, not smaller. Under-betting is how punt spots are born.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">When you have 12+ outs</div>
+          <ul class="bullets success">
+            <li>Bet <strong>70–80% pot</strong> on wet boards</li>
+            <li>You are often favorite or co-favorite</li>
+            <li>Build pot while equity is <strong>real</strong></li>
+            <li>Charge weaker draws, set up turn barrel</li>
+          </ul>
+        </div>
+
+        <div class="exhibit">
+          <div class="exhibit-label">What small probes do instead</div>
+          <ul class="bullets danger">
+            <li>Get called by everything</li>
+            <li>Create no fold equity</li>
+            <li>Build a pot you can't win without hitting</li>
+          </ul>
+        </div>
+
+        <div class="takeaway">
+          <span class="label">Key insight</span>
+          You don't earn the right to bluff the river by under-betting the flop. You forfeit it.
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 EQUITY IS BANKED -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Rule 02 · Equity Is Banked, Not Owed</div>
+        <div class="right">06 / 18</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Flop equity is an <em>opportunity</em> on the flop. On the river, <strong>it is zero</strong>.</h2>
+
+        <div class="exhibit">
+          <div class="exhibit-label">The trap</div>
+          <div class="compare">
+            <div class="compare-card old">
+              <span class="tag">Feeling</span>
+              <div class="statement">"I had 15 outs. I deserve this pot."</div>
+            </div>
+            <div class="compare-card new">
+              <span class="tag">Reality</span>
+              <div class="statement">9-high is 9-high. The outs were earlier.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="takeaway warn">
+          <span class="label">The signal</span>
+          When you notice "but I had so much equity" or "I've put so much in" — that is the tell you are about to punt. Check-fold instead.
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 PRE-COMMIT -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Rule 03 · Pre-Commit on the Flop</div>
+        <div class="right">07 / 18</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Decide your river plan <em>on the flop</em>, before emotion arrives.</h2>
+        <p class="support-line">The moment you arrive at the river is when ego, sunk cost, and frustration peak. Make the decision earlier, when you're calm.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">On every flop you continue, decide</div>
+          <ul class="bullets">
+            <li>If I <strong>hit</strong>, what's my sizing on each street?</li>
+            <li>If I <strong>miss</strong>, am I barreling or giving up?</li>
+            <li>What turn cards <strong>change the plan</strong>?</li>
+          </ul>
+        </div>
+
+        <div class="takeaway">
+          <span class="label">Why this works</span>
+          Pre-commitment removes the in-moment decision. The plan exists. You execute, not deliberate.
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 PART II DIVIDER -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Part II · In-Moment Checks</div>
+        <div class="right">08 / 18</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">When Part I fails and you still feel the urge to bluff, <em>these five checks catch you</em>.</h2>
+        <p class="support-line">Run them in order at the table. If any one says "no," the bluff is off. Takes about 10 seconds.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">The five checks</div>
+          <ul class="bullets">
+            <li><strong>What has villain already done this hand?</strong> Certain earlier actions mean "I have a pair and I'm not folding."</li>
+            <li><strong>Can villain actually have a weak hand here?</strong> Do I hold cards that block their strong hands? Can I name real hands they'd fold?</li>
+            <li><strong>The gut check:</strong> would a typical live tournament player fold top pair in this spot?</li>
+            <li><strong>Does my story make sense?</strong> If I actually had the hand I'm repping, would I have played it this way — and is it even in my range?</li>
+            <li><strong>What's the move instead?</strong> Check-fold, or a small bet, beats a stack-off bluff every time.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 AUTO-BLOCKERS -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Filter 01 · Auto-Blockers</div>
+        <div class="right">09 / 18</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">If <em>any</em> signal from earlier streets occurred, <strong>do not jam the river</strong>.</h2>
+        <p class="support-line">Each independently indicates villain is committed to a one-pair hand they will not release.</p>
 
         <div class="exhibit">
           <div class="exhibit-label">Disqualifying signals</div>
@@ -736,52 +875,54 @@
             <li>Villain <strong>check-called flop AND turn</strong></li>
             <li>Villain <strong>led turn</strong></li>
             <li>Villain <strong>raised turn</strong></li>
-            <li>Villain profiles as a <strong>"curious caller"</strong></li>
+            <li>Villain is a <strong>Type A "Curious Caller"</strong></li>
+            <li>Villain <strong>doubled up recently</strong> with a weak made hand</li>
           </ul>
         </div>
 
-        <div class="takeaway">
-          <span class="label">Key Takeaway</span>
-          They have a pair and are not folding it.
+        <div class="takeaway warn">
+          <span class="label">Translation</span>
+          They have a pair and are not folding it. Representation is worth zero against a hand, not a range.
         </div>
       </div>
     </div>
 
-    <!-- 3 STEP 2 -->
+    <!-- 10 HARD CRITERIA -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Step 02 · The Hard Rule</div>
-        <div class="right">03 / 23</div>
+        <div class="left"><div class="bar"></div>Filter 02 · The Three Hard Criteria</div>
+        <div class="right">10 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Bluffing is only justified when <em>all three</em> criteria are satisfied simultaneously.</h2>
+        <h2 class="action-title">Bluffs are justified only when <em>all three</em> are satisfied simultaneously.</h2>
 
         <div class="exhibit">
           <div class="exhibit-label">Required conditions</div>
           <div class="criteria-grid">
             <div class="criterion">
               <div class="cnum">I</div>
-              <h4>Villain's range is capped</h4>
+              <h4>Villain's range is <em>capped</em></h4>
               <ul>
                 <li>No strong hands likely</li>
-                <li>Mostly one-pair / weak holdings</li>
+                <li>Mostly one-pair or weaker</li>
+                <li>River card changed <em>their</em> range, not just yours</li>
               </ul>
             </div>
             <div class="criterion">
               <div class="cnum">II</div>
-              <h4>You hold relevant blockers</h4>
+              <h4>You hold <em>relevant blockers</em></h4>
               <ul>
-                <li>Block strong hands</li>
-                <li>Unblock folds</li>
+                <li>Block strong calling hands</li>
+                <li>Unblock folding hands</li>
               </ul>
             </div>
             <div class="criterion">
               <div class="cnum">III</div>
-              <h4>You can name ≥5 realistic folds</h4>
+              <h4>You can name <em>≥5 realistic folds</em></h4>
               <ul>
-                <li>Weak top pair</li>
-                <li>Second pair</li>
+                <li>Weak top pair, second pair</li>
                 <li>Missed draws that gave up</li>
+                <li>"I just don't believe you" is not a fold</li>
               </ul>
             </div>
           </div>
@@ -794,14 +935,14 @@
       </div>
     </div>
 
-    <!-- 4 STEP 3 -->
+    <!-- 11 WSOP SHORTCUT -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Step 03 · Practical Shortcut</div>
-        <div class="right">04 / 23</div>
+        <div class="left"><div class="bar"></div>Filter 03 · The Gut Check</div>
+        <div class="right">11 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">A single diagnostic question resolves <em>the majority</em> of marginal bluff spots.</h2>
+        <h2 class="action-title">One question resolves <em>the majority</em> of marginal bluff spots.</h2>
 
         <div class="exhibit">
           <div class="exhibit-label">Decision framework</div>
@@ -815,284 +956,157 @@
               </div>
               <div class="arm yes">
                 <span class="if">If Yes</span>
-                <span class="then">Proceed</span>
+                <span class="then">Proceed to Filters 04–05</span>
               </div>
             </div>
           </div>
         </div>
 
-        <p class="support-line">This single question eliminates a disproportionate share of negative-EV jams.</p>
+        <p class="support-line">Emotionally neutral. Pool-calibrated. Faster than the three criteria when the clock is ticking.</p>
       </div>
     </div>
 
-    <!-- 5 STEP 4 -->
+    <!-- 12 RANGE CHECK -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Step 04 · Board + Story</div>
-        <div class="right">05 / 23</div>
+        <div class="left"><div class="bar"></div>Filter 04 · Rep Hands in Your Range</div>
+        <div class="right">12 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Both board texture <em>and</em> betting line must support the story.</h2>
+        <h2 class="action-title">You can only rep hands your <em>line</em> tells and your <em>range</em> contains.</h2>
+        <p class="support-line">Most bluffs fail not because villain decoded them, but because the story was imaginary to begin with.</p>
 
         <div class="exhibit">
-          <div class="exhibit-label">Dual requirement</div>
-          <div class="criteria-grid">
-            <div class="criterion">
-              <div class="cnum">I</div>
-              <h4>Board is scary <em>for them</em></h4>
-              <ul>
-                <li>Not just "looks scary" to you</li>
-              </ul>
-            </div>
-            <div class="criterion">
-              <div class="cnum">II</div>
-              <h4>Your line makes sense</h4>
-              <ul>
-                <li>Passive line → sudden jam = not believed</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="takeaway warn">
-          <span class="label">Population reality</span>
-          Live players rarely believe inconsistent stories.
-        </div>
-      </div>
-    </div>
-
-    <!-- 6 STEP 5 -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Step 05 · Missed Draws</div>
-        <div class="right">06 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Bluffing requires credible, representable missed draws.</h2>
-        <p class="support-line">All three conditions must hold. A single failure invalidates the bluff.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Conditions required</div>
+          <div class="exhibit-label">Two diagnostic questions</div>
           <ul class="bullets">
-            <li>Clear <strong>missed draws</strong> exist on the board</li>
-            <li>Villain's range <strong>can contain</strong> those draws</li>
-            <li>You can <strong>represent them logically</strong> given your line</li>
+            <li>"If I actually had that hand, <strong>would I bet this size</strong> on this street?"</li>
+            <li>"Is that hand even <strong>in my perceived range</strong> from this position?"</li>
           </ul>
         </div>
 
-        <div class="takeaway warn">
-          <span class="label">If not</span>
-          You are blasting into pairs.
-        </div>
-      </div>
-    </div>
-
-    <!-- 7 STEP 6 -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Step 06 · Population Truth Table</div>
-        <div class="right">07 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Map villain's line to its <em>most likely meaning</em> — then adjust.</h2>
-
         <div class="exhibit">
-          <div class="exhibit-label">Exhibit · Decision reference</div>
-          <table class="data-table">
-            <thead>
-              <tr><th>Line</th><th>Typical Meaning</th><th>Response</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Small river bet</td><td>Weak / probing</td><td class="move-call">Call wider</td></tr>
-              <tr><td>Turn aggression</td><td>Usually strong</td><td class="move-fold">Fold more</td></tr>
-              <tr><td>River jam</td><td>Very strong</td><td class="move-fold">Overfold</td></tr>
-              <tr><td>Passive → big river</td><td>Often bluff</td><td class="move-call">Call more</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="footnote">Source: Live low/mid-stakes population tendencies.</div>
-      </div>
-    </div>
-
-    <!-- 8 SCRIPT -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>The 5-Second Script</div>
-        <div class="right">08 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Execute this <em>four-question sequence</em> before every river jam.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Decision sequence</div>
-          <div class="flow">
-            <div class="flow-step">
-              <div class="q">Did he show strength earlier?</div>
-              <div class="out">Yes → No Bluff</div>
-            </div>
-            <div class="flow-step">
-              <div class="q">Would he fold top pair?</div>
-              <div class="out">No → No Bluff</div>
-            </div>
-            <div class="flow-step">
-              <div class="q">Can I name 5 folds?</div>
-              <div class="out">No → No Bluff</div>
-            </div>
-            <div class="flow-step">
-              <div class="q">Does my line make sense?</div>
-              <div class="out">No → No Bluff</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="takeaway go">
-          <span class="label">If all 4 pass</span>
-          You may bluff. Expect this to be rare — that is correct.
-        </div>
-      </div>
-    </div>
-
-    <!-- 9 NEW DEFAULT -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Default Line Reset</div>
-        <div class="right">09 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Replace the reflex default. <em>Checking</em> is the new baseline.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Before vs. after</div>
+          <div class="exhibit-label">Common self-deception</div>
           <div class="compare">
             <div class="compare-card old">
-              <span class="tag">Current State</span>
-              <div class="statement">Miss draw → jam</div>
+              <span class="tag">Wished</span>
+              <div class="statement">"I'm repping KJ / AJ / overpair."</div>
             </div>
             <div class="compare-card new">
-              <span class="tag">Target State</span>
-              <div class="statement">Miss draw → check and give up</div>
+              <span class="tag">Actual</span>
+              <div class="statement">Your UTG range doesn't contain those hands, and overpairs bet bigger.</div>
             </div>
           </div>
         </div>
 
         <div class="takeaway">
-          <span class="label">Reframe</span>
-          You are not missing spots. You are removing losing plays.
+          <span class="label">And remember</span>
+          Against Type A villains, representation is worth zero anyway. You are bluffing a hand, not a range.
         </div>
       </div>
     </div>
 
-    <!-- 10 GREEN LIGHT -->
+    <!-- 13 REPLACEMENT MOVE -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Permitted Jam Conditions</div>
-        <div class="right">10 / 23</div>
+        <div class="left"><div class="bar"></div>Filter 05 · The Replacement Move</div>
+        <div class="right">13 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Legitimate bluff jams exist, but satisfy <em>all four</em> criteria.</h2>
+        <h2 class="action-title">When the filters fail, the default is <em>not "shove anyway"</em> — it's one of two moves.</h2>
 
         <div class="exhibit">
-          <div class="exhibit-label">Green-light requirements</div>
-          <ul class="bullets success">
-            <li>Villain checked <strong>multiple streets</strong></li>
-            <li>Board changed in a way that <strong>hits your range</strong></li>
-            <li>You can <strong>name the folds</strong></li>
-            <li>Villain is <strong>capable of folding</strong></li>
+          <div class="exhibit-label">Default replacements</div>
+          <ul class="bullets">
+            <li><strong>Check and give up.</strong> Losing the pot you were losing anyway is free.</li>
+            <li><strong>Small blocker bet (25–33% pot).</strong> Folds out air, gets called by the same hands that call a shove — at 2–3x less cost.</li>
           </ul>
         </div>
 
         <div class="takeaway go">
-          <span class="label">Proceed</span>
-          These are the only real bluff jam spots in your games.
+          <span class="label">Reframe</span>
+          You are not missing spots. You are removing losing plays. Saving a stack is earning a stack.
         </div>
       </div>
     </div>
 
-    <!-- 11 HERO QUOTE -->
+    <!-- 14 PART III DIVIDER -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Core Heuristic</div>
-        <div class="right">11 / 23</div>
-      </div>
-      <div class="slide-inner hero-slide">
-        <div class="chapter">The One Thing to Remember</div>
-        <div class="quote">
-          <span class="quote-open">"</span>If they've put money in twice, they're not folding a pair."
-        </div>
-        <div class="cite">Not universally true — profitable to assume.</div>
-      </div>
-    </div>
-
-    <!-- 12 BRIDGE · PART II -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Part II · Redundant Discipline</div>
-        <div class="right">12 / 23</div>
+        <div class="left"><div class="bar"></div>Part III · Backup Rules</div>
+        <div class="right">14 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title"><em>Redundant discipline systems</em> so even when one fails, another catches you.</h2>
-        <p class="support-line">Tilt, momentum, "this one feels right" — any one framework can break. Layered frameworks do not.</p>
+        <h2 class="action-title">When Parts I and II fail — <em>and some night they will</em> — these three backup rules catch you.</h2>
+        <p class="support-line">Tilt, momentum, "this one just feels right" — any single rule can break under pressure. Stacked rules do not all break at once.</p>
 
         <div class="exhibit">
-          <div class="exhibit-label">Scope of Part II</div>
+          <div class="exhibit-label">Three backup rules</div>
           <ul class="bullets">
-            <li>All tuned for <strong>low–mid stakes live MTTs</strong> where people call too much</li>
-            <li>Each is <strong>simple and enforceable</strong></li>
-            <li>Each is designed to stop your <strong>exact leak</strong></li>
+            <li><strong>Flip the question.</strong> Don't ask "could this work?" — ask "can I prove this WILL work?"</li>
+            <li><strong>Name what's at stake.</strong> Am I putting my tournament life at risk to fold out one pair?</li>
+            <li><strong>Remember the last time.</strong> Every bluff that got snapped off was obvious to them, not you.</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- 13 TWO-STREET COMMITMENT -->
+    <!-- 15 REVERSE BURDEN -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 01 · Two-Street Commitment</div>
-        <div class="right">13 / 23</div>
+        <div class="left"><div class="bar"></div>Backup 01 · Flip the Question</div>
+        <div class="right">15 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">If they put money in on <em>two streets</em>, you don't bluff them off it.</h2>
+        <h2 class="action-title">Stop asking "<em>could this work?</em>" Start asking "<em>can I prove this will work?</em>"</h2>
+        <p class="support-line">"Could" is a low bar. Almost any bluff "could" work. "Will" forces you to show your evidence.</p>
 
         <div class="exhibit">
-          <div class="exhibit-label">Applies when</div>
-          <ul class="bullets danger">
-            <li>Call flop + call turn</li>
-            <li>Bet turn + call</li>
-            <li>Any "sticky" line</li>
-          </ul>
+          <div class="exhibit-label">Shift the default</div>
+          <div class="compare">
+            <div class="compare-card old">
+              <span class="tag">Old question</span>
+              <div class="statement">"This could work."</div>
+            </div>
+            <div class="compare-card new">
+              <span class="tag">New question</span>
+              <div class="statement">"Prove to me this WILL work."</div>
+            </div>
+          </div>
         </div>
 
         <div class="exhibit">
-          <div class="exhibit-label">Your action</div>
+          <div class="exhibit-label">To proceed, you must show</div>
           <ul class="bullets">
-            <li><strong>No river bluff jams. Ever.</strong></li>
+            <li>Villain is <strong>capable of folding</strong> in this spot</li>
+            <li>Your betting line <strong>looks like a real value hand</strong> to them</li>
+            <li>You can <strong>name specific hands</strong> they'd fold</li>
           </ul>
         </div>
 
-        <div class="takeaway">
-          <span class="label">Why it works</span>
-          These players have a pair, are emotionally committed, and call "to see it."
+        <div class="takeaway warn">
+          <span class="label">If you can't prove all three</span>
+          No bluff. Not being sure isn't the same as having a green light.
         </div>
       </div>
     </div>
 
-    <!-- 14 STACK RISK FILTER -->
+    <!-- 16 STACK RISK FILTER -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 02 · Stack Risk Filter</div>
-        <div class="right">14 / 23</div>
+        <div class="left"><div class="bar"></div>Backup 02 · Name What's at Stake</div>
+        <div class="right">16 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Before jamming, ask: <em>"Am I risking my tournament life to fold out one pair?"</em></h2>
-        <p class="support-line">If yes → <strong>NO BLUFF</strong>.</p>
+        <h2 class="action-title">Ask: <em>"Am I risking my tournament life to fold out one pair?"</em></h2>
+        <p class="support-line">If yes → <strong>no bluff</strong>. Reframes the shove from "heroic" to "absurd."</p>
 
         <div class="exhibit">
-          <div class="exhibit-label">Translation · Live players will call off with</div>
+          <div class="exhibit-label">Live players will call off with</div>
           <ul class="bullets danger">
             <li>Top pair</li>
             <li>Overpairs</li>
             <li>"I don't believe you"</li>
+            <li>Pair + emotional commitment from earlier streets</li>
           </ul>
         </div>
 
@@ -1103,264 +1117,42 @@
       </div>
     </div>
 
-    <!-- 15 REVERSE BURDEN OF PROOF -->
+    <!-- 17 PAIN MEMORY ANCHOR -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 03 · Reverse Burden of Proof</div>
-        <div class="right">15 / 23</div>
+        <div class="left"><div class="bar"></div>Backup 03 · Remember the Last Time</div>
+        <div class="right">17 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Flip your logic. Prove the bluff <em>will work</em> — not that it could.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Logic reset</div>
-          <div class="compare">
-            <div class="compare-card old">
-              <span class="tag">Old (current)</span>
-              <div class="statement">"This could work."</div>
-            </div>
-            <div class="compare-card new">
-              <span class="tag">New</span>
-              <div class="statement">"Prove to me this WILL work."</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="exhibit">
-          <div class="exhibit-label">You must prove</div>
-          <ul class="bullets">
-            <li>They can fold</li>
-            <li>You rep value</li>
-            <li>You have folds</li>
-          </ul>
-        </div>
-
-        <div class="takeaway warn">
-          <span class="label">If you can't prove it</span>
-          No bluff.
-        </div>
-      </div>
-    </div>
-
-    <!-- 16 CALL TYPE CLASSIFICATION -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 04 · Call Type Classification</div>
-        <div class="right">16 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Classify villain <em>before</em> bluffing.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Three player types</div>
-          <div class="criteria-grid">
-            <div class="criterion">
-              <div class="cnum">A</div>
-              <h4>"Curious Caller" <em>— most common</em></h4>
-              <ul>
-                <li>Calls down</li>
-                <li>Doesn't like folding</li>
-                <li>"Let me see it"</li>
-              </ul>
-            </div>
-            <div class="criterion">
-              <div class="cnum">B</div>
-              <h4>"Straightforward"</h4>
-              <ul>
-                <li>Bets when strong</li>
-                <li>Gives up when weak</li>
-              </ul>
-            </div>
-            <div class="criterion">
-              <div class="cnum">C</div>
-              <h4>"Thinking Reg"</h4>
-              <ul>
-                <li>Capable of folding</li>
-                <li>Understands ranges</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Action by type</div>
-          <table class="data-table">
-            <thead>
-              <tr><th>Type</th><th>Profile</th><th>Bluff Policy</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>A · Curious</td><td>Calls down</td><td class="move-fold">Never big</td></tr>
-              <tr><td>B · Straightforward</td><td>Strong = bet</td><td class="move-call">Clean spots only</td></tr>
-              <tr><td>C · Thinking Reg</td><td>Can fold</td><td class="move-call">Selective</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="takeaway warn">
-          <span class="label">Your mistake</span>
-          You're treating Type A like Type C.
-        </div>
-      </div>
-    </div>
-
-    <!-- 17 RIVER JAM BAN -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 05 · River Jam Ban</div>
-        <div class="right">17 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">For your next sessions: <em>ban all river bluff jams</em> unless checked to twice.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Allowed</div>
-          <ul class="bullets success">
-            <li>Check → check → jam</li>
-            <li>Clear weakness</li>
-          </ul>
-        </div>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Not allowed</div>
-          <ul class="bullets danger">
-            <li>Bet/call → jam</li>
-            <li>Call/call → jam</li>
-            <li>Any strength shown</li>
-          </ul>
-        </div>
-
-        <div class="takeaway go">
-          <span class="label">Why this works</span>
-          Removes your biggest leak instantly. Forces you to earn bluff spots. Retrains instincts.
-        </div>
-      </div>
-    </div>
-
-    <!-- 18 WHAT CALLS ME -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 06 · "What Calls Me?" Test</div>
-        <div class="right">18 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Before jamming, list: <em>what hands call me?</em></h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">If the answer includes</div>
-          <ul class="bullets danger">
-            <li>Top pair</li>
-            <li>Two pair</li>
-            <li>Sets</li>
-          </ul>
-        </div>
-
-        <div class="takeaway warn">
-          <span class="label">And those hands are common</span>
-          Your bluff is bad.
-        </div>
-      </div>
-    </div>
-
-    <!-- 19 EFFORT VS REWARD -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 07 · Effort vs Reward Check</div>
-        <div class="right">19 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Ask: <em>"Is this a complicated bluff against a simple player?"</em></h2>
-        <p class="support-line">If yes → don't do it.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Translation</div>
-          <div class="compare">
-            <div class="compare-card old">
-              <span class="tag">You</span>
-              <div class="statement">Thinking about ranges, blockers, story</div>
-            </div>
-            <div class="compare-card new">
-              <span class="tag">Them</span>
-              <div class="statement">Thinking: "I have a pair"</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 20 TURN DISCIPLINE -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 08 · Turn Discipline Rule</div>
-        <div class="right">20 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Most bad river jams start with <em>bad turn decisions.</em></h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">The rule</div>
-          <ul class="bullets">
-            <li>If you call turn with a draw, you are <strong>NOT obligated</strong> to bluff river</li>
-            <li>You are allowed to miss → <strong>check/fold</strong></li>
-          </ul>
-        </div>
-
-        <div class="takeaway">
-          <span class="label">This is huge for you</span>
-          Right now you're "invested" → feel forced to bluff. Break that link.
-        </div>
-      </div>
-    </div>
-
-    <!-- 21 ONE BLUFF PER ORBIT -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 09 · One Bluff Per Orbit</div>
-        <div class="right">21 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">If you tend to get out of line: <em>one meaningful bluff attempt per orbit.</em></h2>
-        <p class="support-line">Optional discipline tool.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Forces</div>
-          <ul class="bullets success">
-            <li>Selectivity</li>
-            <li>Patience</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 22 PAIN MEMORY ANCHOR -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 10 · Pain Memory Anchor</div>
-        <div class="right">22 / 23</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Burn this in: every time you got snapped off bluffing, <em>it looked obvious to them.</em></h2>
+        <h2 class="action-title">Every time you got snapped off bluffing, <em>it looked obvious to them</em>.</h2>
 
         <div class="exhibit">
           <div class="exhibit-label">Because</div>
           <ul class="bullets danger">
             <li>They had a pair</li>
             <li>They never considered folding</li>
+            <li>They were not reading your story — they were reading their cards</li>
           </ul>
+        </div>
+
+        <div class="takeaway">
+          <span class="label">Burn this in</span>
+          The hero shove feels complex to you. It is a call decision to them. That asymmetry is the leak.
         </div>
       </div>
     </div>
 
-    <!-- 23 SIMPLE STACK + CALIBRATION -->
+    <!-- 18 FINAL STACK + CORE HEURISTIC -->
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Combined Stack · Final Calibration</div>
-        <div class="right">23 / 23</div>
+        <div class="right">18 / 18</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">When you feel the urge to jam, <em>run the stack.</em></h2>
+        <h2 class="action-title">When you feel the urge to jam, <em>run the stack</em>.</h2>
 
         <div class="exhibit">
-          <div class="exhibit-label">The simple stack</div>
+          <div class="exhibit-label">The simple stack — any "yes" cancels the bluff</div>
           <div class="flow">
             <div class="flow-step">
               <div class="q">Did he put money in twice?</div>
@@ -1371,33 +1163,30 @@
               <div class="out">No → No Bluff</div>
             </div>
             <div class="flow-step">
-              <div class="q">What calls me? (many hands?)</div>
+              <div class="q">Is the river card a brick to his range?</div>
               <div class="out">Yes → No Bluff</div>
             </div>
             <div class="flow-step">
-              <div class="q">Risking stack to fold one pair?</div>
+              <div class="q">Am I risking stack to fold one pair?</div>
+              <div class="out">Yes → No Bluff</div>
+            </div>
+            <div class="flow-step">
+              <div class="q">Am I feeling "owed" for prior equity?</div>
               <div class="out">Yes → No Bluff</div>
             </div>
           </div>
         </div>
 
-        <div class="takeaway warn">
-          <span class="label">If any trigger hits</span>
-          Check.
+        <div class="exhibit" style="margin-top:18px;">
+          <div class="exhibit-label">The one line to remember</div>
+          <div class="decision-box">
+            <div class="q">"Tag the table, press equity when you have it, bank it when you don't, bluff only when you can prove it — and pre-commit the plan on the flop."</div>
+          </div>
         </div>
 
-        <div class="exhibit" style="margin-top:18px;">
-          <div class="exhibit-label">Final calibration</div>
-          <div class="compare">
-            <div class="compare-card old">
-              <span class="tag">Right now</span>
-              <div class="statement">You are forcing bluffs in low-fold environments</div>
-            </div>
-            <div class="compare-card new">
-              <span class="tag">Winning adjustment</span>
-              <div class="statement">Bluff rarely, value bet relentlessly, fold often</div>
-            </div>
-          </div>
+        <div class="takeaway go">
+          <span class="label">Winning adjustment</span>
+          Bluff rarely. Value-bet relentlessly. Fold often. Protect the stack that makes the rest possible.
         </div>
       </div>
     </div>
@@ -1408,7 +1197,7 @@
 <nav class="nav">
   <button class="nav-btn" id="prev" aria-label="Previous">‹</button>
   <div class="progress-group">
-    <div class="counter"><span class="current" id="current">01</span> / <span id="total">12</span></div>
+    <div class="counter"><span class="current" id="current">01</span> / <span id="total">18</span></div>
     <div class="bar"><div class="fill" id="fill"></div></div>
   </div>
   <button class="nav-btn" id="next" aria-label="Next">›</button>
