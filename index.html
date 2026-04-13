@@ -428,6 +428,27 @@
   .data-table .move-call { color: var(--success); }
   .data-table .move-fold { color: var(--accent); }
 
+  /* Compact 4-column comparison table */
+  .data-table.compare-table { font-size: 11px; }
+  .data-table.compare-table th,
+  .data-table.compare-table td { padding: 7px 6px; }
+  .data-table.compare-table th { font-size: 8px; letter-spacing: 0.08em; }
+  .data-table.compare-table td:first-child {
+    width: 18%;
+    background: var(--navy-tint);
+    color: var(--navy);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .data-table.compare-table td:not(:first-child) {
+    font-weight: 400;
+    color: var(--ink);
+    text-align: left;
+    white-space: normal;
+  }
+  .data-table.compare-table tr:nth-child(even) td:first-child { background: var(--navy-tint); }
+
   .flow {
     display: flex;
     flex-direction: column;
@@ -645,7 +666,7 @@
           <div class="caveat">You are opting out of bluffing, not opting in. Bluffs are earned, never assumed.</div>
         </div>
         <div class="footer">
-          <span class="date">18 Pages · Read Pre-Session</span>
+          <span class="date">21 Pages · Read Pre-Session</span>
           <span class="conf">v2.0 Unified</span>
         </div>
       </div>
@@ -655,7 +676,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Thesis</div>
-        <div class="right">02 / 18</div>
+        <div class="right">02 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">The leak has <em>two causes</em>, and both must be addressed.</h2>
@@ -696,7 +717,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Part I · Hand-Shape Discipline</div>
-        <div class="right">03 / 18</div>
+        <div class="right">03 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Win the hand on the flop and turn, so the river is <em>never a punt spot</em>.</h2>
@@ -718,7 +739,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Rule 00 · Tag the Table</div>
-        <div class="right">04 / 18</div>
+        <div class="right">04 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Before any meaningful pot, <em>you already know</em> who folds and who doesn't.</h2>
@@ -745,11 +766,180 @@
       </div>
     </div>
 
-    <!-- 05 PRESS EQUITY -->
+    <!-- 05 ACTIONS BY STREET -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Player Types · Actions by Street</div>
+        <div class="right">05 / 21</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">What each type <em>actually does</em>, street by street.</h2>
+        <p class="support-line">Modal behaviors, not absolute rules. Use as priors that get updated by showdowns.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Most common actions</div>
+          <table class="data-table compare-table">
+            <thead>
+              <tr><th>Street</th><th>Type A · Station</th><th>Type B · ABC</th><th>Type C · Reg</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pre</td>
+                <td>Limps wide; min-raise or 5x+ with strong; cold-calls 3-bets</td>
+                <td>Standard 2.5–3x; 3-bets QQ+/AK; folds to 3-bets without value</td>
+                <td>Smaller opens (2–2.3x); merged 3-bets w/ bluffs; squeezes</td>
+              </tr>
+              <tr>
+                <td>Flop</td>
+                <td>Min-bets any piece; check-calls any pair/draw; slowplays sets</td>
+                <td>C-bets when hits, check-folds when misses; raises strong for protection</td>
+                <td>Multiple sizes; checks back medium hands IP; check-raises as bluff and value</td>
+              </tr>
+              <tr>
+                <td>Turn</td>
+                <td>Check-calls again with same pair; bets bigger when improved</td>
+                <td>Continues with strong, slows with marginal; folds top pair to raises</td>
+                <td>Barrels w/ value AND equity bluffs; probe bets OOP; sizes up/down by range</td>
+              </tr>
+              <tr>
+                <td>River</td>
+                <td>Snap-calls any pair; small bet w/ strong, big w/ nuts; rarely bluffs</td>
+                <td>Bets value, checks marginal; folds to big bets on scary runouts</td>
+                <td>Polarized (1/3 pot or overbet); bluffs w/ blockers; tank-folds top pair when line breaks</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 SIZING TELLS -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Player Types · Sizing Tells</div>
+        <div class="right">06 / 21</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Sizing variance is the <em>fastest type read</em> at the table.</h2>
+        <p class="support-line">You don't need to see cards. Sizing patterns alone separate the three types within an orbit or two.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">Bet sizing by street</div>
+          <table class="data-table compare-table">
+            <thead>
+              <tr><th>Street</th><th>Type A</th><th>Type B</th><th>Type C</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pre</td>
+                <td>Erratic — 2x, 4x, 10x by hand</td>
+                <td>Consistent 2.5–3x</td>
+                <td>Consistent small; polarized 3-bets</td>
+              </tr>
+              <tr>
+                <td>Flop</td>
+                <td>Sizing tells you hand strength directly</td>
+                <td>Consistent 50–66% regardless of hand</td>
+                <td>Same sizing across hand types — sizing is NOT a tell</td>
+              </tr>
+              <tr>
+                <td>Turn</td>
+                <td>Big = big hand; small = marginal</td>
+                <td>Same sizing as flop, or check</td>
+                <td>Strategic — bigger on cards hitting their range</td>
+              </tr>
+              <tr>
+                <td>River</td>
+                <td>Small = "want a call"; big = nuts</td>
+                <td>Sizing matches perceived strength</td>
+                <td>Polarized — 1/3 pot or 75%+/overbet, rarely between</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="takeaway">
+          <span class="label">Quickest read</span>
+          Erratic sizing = A · Same sizing every time = B · Multiple deliberate sizes = C
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 DIAGNOSTIC BEHAVIORS -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Player Types · Diagnostic Behaviors</div>
+        <div class="right">07 / 21</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">The behaviors that <em>actually separate</em> the three types.</h2>
+        <p class="support-line">If you only watch a few things, watch these. Each row alone is often enough to classify.</p>
+
+        <div class="exhibit">
+          <div class="exhibit-label">High-signal behaviors</div>
+          <table class="data-table compare-table">
+            <thead>
+              <tr><th>Behavior</th><th>Type A</th><th>Type B</th><th>Type C</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Folds river after calling 2 streets</td>
+                <td>Almost never</td>
+                <td>Sometimes</td>
+                <td>Yes, when line breaks</td>
+              </tr>
+              <tr>
+                <td>Tanks then calls</td>
+                <td>Often</td>
+                <td>Rarely</td>
+                <td>Rarely (tanks then folds)</td>
+              </tr>
+              <tr>
+                <td>Snap-calls river</td>
+                <td>Yes, with any pair</td>
+                <td>With clear bluff-catchers</td>
+                <td>Only on obvious spots</td>
+              </tr>
+              <tr>
+                <td>Bluffs river</td>
+                <td>Almost never</td>
+                <td>Rarely, obviously</td>
+                <td>Yes, with blockers</td>
+              </tr>
+              <tr>
+                <td>Slowplays monsters</td>
+                <td>Often (calls down)</td>
+                <td>Rarely (bets to protect)</td>
+                <td>Sometimes (deliberate)</td>
+              </tr>
+              <tr>
+                <td>3-bets preflop</td>
+                <td>Only AA/KK/QQ/AK</td>
+                <td>QQ+/AK, balanced</td>
+                <td>Merged, includes bluffs</td>
+              </tr>
+              <tr>
+                <td>Sizing variance</td>
+                <td>High (emotion-driven)</td>
+                <td>Low (one default)</td>
+                <td>High (situation-driven)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="takeaway warn">
+          <span class="label">Default if uncertain</span>
+          Treat unknowns as Type A. You need positive evidence to promote them.
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 PRESS EQUITY -->
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Rule 01 · Press Equity When You Have It</div>
-        <div class="right">05 / 18</div>
+        <div class="right">08 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Big draws are <em>bet bigger</em>, not smaller. Under-betting is how punt spots are born.</h2>
@@ -784,7 +974,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Rule 02 · Equity Is Banked, Not Owed</div>
-        <div class="right">06 / 18</div>
+        <div class="right">09 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Flop equity is an <em>opportunity</em> on the flop. On the river, <strong>it is zero</strong>.</h2>
@@ -814,7 +1004,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Rule 03 · Pre-Commit on the Flop</div>
-        <div class="right">07 / 18</div>
+        <div class="right">10 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Decide your river plan <em>on the flop</em>, before emotion arrives.</h2>
@@ -840,7 +1030,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Part II · In-Moment Checks</div>
-        <div class="right">08 / 18</div>
+        <div class="right">11 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">When Part I fails and you still feel the urge to bluff, <em>these five checks catch you</em>.</h2>
@@ -863,7 +1053,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Filter 01 · Auto-Blockers</div>
-        <div class="right">09 / 18</div>
+        <div class="right">12 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">If <em>any</em> signal from earlier streets occurred, <strong>do not jam the river</strong>.</h2>
@@ -891,7 +1081,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Filter 02 · The Three Hard Criteria</div>
-        <div class="right">10 / 18</div>
+        <div class="right">13 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Bluffs are justified only when <em>all three</em> are satisfied simultaneously.</h2>
@@ -939,7 +1129,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Filter 03 · The Gut Check</div>
-        <div class="right">11 / 18</div>
+        <div class="right">14 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">One question resolves <em>the majority</em> of marginal bluff spots.</h2>
@@ -970,7 +1160,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Filter 04 · Rep Hands in Your Range</div>
-        <div class="right">12 / 18</div>
+        <div class="right">15 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">You can only rep hands your <em>line</em> tells and your <em>range</em> contains.</h2>
@@ -1009,7 +1199,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Filter 05 · The Replacement Move</div>
-        <div class="right">13 / 18</div>
+        <div class="right">16 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">When the filters fail, the default is <em>not "shove anyway"</em> — it's one of two moves.</h2>
@@ -1033,7 +1223,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Part III · Backup Rules</div>
-        <div class="right">14 / 18</div>
+        <div class="right">17 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">When Parts I and II fail — <em>and some night they will</em> — these three backup rules catch you.</h2>
@@ -1054,7 +1244,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Backup 01 · Flip the Question</div>
-        <div class="right">15 / 18</div>
+        <div class="right">18 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Stop asking "<em>could this work?</em>" Start asking "<em>can I prove this will work?</em>"</h2>
@@ -1094,7 +1284,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Backup 02 · Name What's at Stake</div>
-        <div class="right">16 / 18</div>
+        <div class="right">19 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Ask: <em>"Am I risking my tournament life to fold out one pair?"</em></h2>
@@ -1121,7 +1311,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Backup 03 · Remember the Last Time</div>
-        <div class="right">17 / 18</div>
+        <div class="right">20 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">Every time you got snapped off bluffing, <em>it looked obvious to them</em>.</h2>
@@ -1146,7 +1336,7 @@
     <div class="slide">
       <div class="slide-head">
         <div class="left"><div class="bar"></div>Combined Stack · Final Calibration</div>
-        <div class="right">18 / 18</div>
+        <div class="right">21 / 21</div>
       </div>
       <div class="slide-inner">
         <h2 class="action-title">When you feel the urge to jam, <em>run the stack</em>.</h2>
