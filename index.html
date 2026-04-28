@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#ffffff">
-<title>KP's Bluff Discipline Framework</title>
+<title>Discipline Framework</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,13 +19,10 @@
     --ink-2: #4a4e5e;
     --ink-3: #8a8e9c;
     --rule: #d4d8e0;
-    --rule-strong: #1a1a2e;
     --accent: #c8102e;
     --success: #00703c;
-    --warning: #ed8b00;
     --nav-h: 60px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
   body {
@@ -37,616 +34,299 @@
     font-size: 14px;
   }
 
-  .deck {
-    position: fixed;
-    inset: 0 0 var(--nav-h) 0;
-    overflow: hidden;
-    z-index: 2;
-  }
+  .deck { position: fixed; inset: 0 0 var(--nav-h) 0; overflow: hidden; z-index: 2; }
   .slides {
-    display: flex;
-    height: 100%;
-    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    display: flex; height: 100%;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
     will-change: transform;
   }
   .slides.dragging { transition: none; }
-
   .slide {
-    flex: 0 0 100%;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    flex: 0 0 100%; width: 100%; height: 100%;
+    overflow-y: auto; overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: 0;
-    position: relative;
     background: var(--bg);
   }
   .slide-inner {
-    max-width: 520px;
-    margin: 0 auto;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
+    max-width: 520px; margin: 0 auto;
+    min-height: 100%; display: flex; flex-direction: column;
     padding: 0 22px 28px;
   }
 
+  /* SLIDE HEADER */
   .slide-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 22px;
-    border-bottom: 2px solid var(--navy);
-    background: var(--bg);
-    max-width: 520px;
-    margin: 0 auto;
-    width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 22px; border-bottom: 2px solid var(--navy);
+    background: var(--bg); max-width: 520px; margin: 0 auto; width: 100%;
   }
   .slide-head .left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--navy);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy);
   }
-  .slide-head .bar {
-    width: 3px;
-    height: 14px;
-    background: var(--accent);
+  .slide-head .bar { width: 3px; height: 14px; background: var(--accent); }
+  .slide-head .right { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: var(--ink-3); }
+
+  /* SECTION DIVIDER (navy full-width) */
+  .section-slide { background: var(--navy) !important; color: white; }
+  .section-slide .slide-inner { justify-content: center; padding-top: 40px; }
+  .section-slide .section-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 20px;
   }
-  .slide-head .right {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--ink-3);
+  .section-slide .section-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700; font-size: clamp(34px, 9vw, 46px); line-height: 1.05;
+    letter-spacing: -0.025em; margin-bottom: 20px;
+  }
+  .section-slide .section-title em { font-style: italic; color: rgba(255,255,255,0.7); }
+  .section-slide .section-sub {
+    font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.8); max-width: 90%;
+  }
+  .section-slide .section-accent {
+    width: 50px; height: 3px; background: var(--accent); margin-bottom: 24px;
   }
 
+  /* ACTION TITLE */
   .action-title {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-weight: 600;
-    font-size: clamp(22px, 6vw, 28px);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    color: var(--ink);
-    padding: 24px 0 16px;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 20px;
+    font-weight: 600; font-size: clamp(22px, 6vw, 28px); line-height: 1.2;
+    letter-spacing: -0.015em; color: var(--ink);
+    padding: 24px 0 16px; border-bottom: 1px solid var(--rule); margin-bottom: 20px;
   }
   .action-title em { font-style: italic; color: var(--navy); }
   .action-title strong { font-weight: 700; }
 
-  .support-line {
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--ink-2);
-    margin-bottom: 18px;
-    font-weight: 500;
-  }
+  .support-line { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin-bottom: 18px; font-weight: 500; }
 
+  /* EXHIBIT */
   .exhibit { margin-bottom: 18px; }
   .exhibit-label {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--navy);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--navy); margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
   }
-  .exhibit-label::before {
-    content: "";
-    width: 14px;
-    height: 2px;
-    background: var(--navy);
-  }
+  .exhibit-label::before { content: ""; width: 14px; height: 2px; background: var(--navy); }
 
-  .cover {
-    justify-content: center;
-    padding: 40px 22px !important;
-    position: relative;
-  }
+  /* COVER */
+  .cover { justify-content: center; padding: 40px 22px !important; position: relative; }
   .cover::before {
-    content: "";
-    position: absolute;
-    left: 22px;
-    right: 22px;
-    top: 40px;
-    height: 4px;
-    background: var(--navy);
+    content: ""; position: absolute; left: 22px; right: 22px; top: 40px;
+    height: 4px; background: var(--navy);
   }
   .cover::after {
-    content: "";
-    position: absolute;
-    left: 22px;
-    top: 44px;
-    width: 60px;
-    height: 4px;
-    background: var(--accent);
+    content: ""; position: absolute; left: 22px; top: 44px;
+    width: 60px; height: 4px; background: var(--accent);
   }
   .cover .client {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--navy);
-    margin-top: 16px;
-    margin-bottom: 60px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--navy); margin-top: 16px; margin-bottom: 60px;
   }
   .cover h1 {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-weight: 600;
-    font-size: clamp(36px, 10vw, 48px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 16px;
+    font-weight: 600; font-size: clamp(36px, 10vw, 48px); line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 16px;
   }
   .cover h1 em { font-style: italic; color: var(--navy); }
   .cover .sub {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 16px;
-    line-height: 1.4;
-    color: var(--ink-2);
-    font-style: italic;
-    margin-bottom: 40px;
-    max-width: 95%;
+    font-size: 16px; line-height: 1.4; color: var(--ink-2);
+    font-style: italic; margin-bottom: 40px; max-width: 95%;
   }
   .cover .default-panel {
-    background: var(--navy);
-    color: white;
-    padding: 22px 24px;
-    margin-bottom: 36px;
-    position: relative;
+    background: var(--navy); color: white; padding: 22px 24px; margin-bottom: 36px; position: relative;
   }
   .cover .default-panel::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--accent);
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent);
   }
   .cover .default-panel .label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); margin-bottom: 10px;
   }
   .cover .default-panel .quote {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-style: italic;
-    font-size: 19px;
-    line-height: 1.3;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-style: italic; font-size: 19px; line-height: 1.3; font-weight: 600; margin-bottom: 8px;
   }
-  .cover .default-panel .caveat {
-    font-size: 12px;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.4;
-  }
+  .cover .default-panel .caveat { font-size: 12px; color: rgba(255,255,255,0.75); }
+  .cover .toc { margin-top: 8px; font-size: 11px; color: var(--ink-3); line-height: 1.8; font-weight: 500; }
+  .cover .toc strong { color: var(--ink); font-weight: 700; }
   .cover .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-top: 20px;
-    border-top: 1px solid var(--rule);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    font-weight: 600;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-top: 20px; border-top: 1px solid var(--rule);
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600;
   }
-  .cover .footer .date { color: var(--ink-2); }
-  .cover .footer .conf {
-    padding: 3px 8px;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-weight: 700;
-  }
+  .cover .footer .conf { padding: 3px 8px; border: 1px solid var(--accent); color: var(--accent); font-weight: 700; }
 
+  /* BULLETS */
   .bullets { list-style: none; margin: 4px 0; }
   .bullets li {
-    padding: 9px 0 9px 22px;
-    font-size: 14px;
-    line-height: 1.45;
-    position: relative;
-    color: var(--ink);
+    padding: 9px 0 9px 22px; font-size: 14px; line-height: 1.45; position: relative;
   }
   .bullets li::before {
-    content: "";
-    position: absolute;
-    left: 2px;
-    top: 16px;
-    width: 8px;
-    height: 8px;
-    background: var(--navy);
+    content: ""; position: absolute; left: 2px; top: 16px; width: 8px; height: 8px; background: var(--navy);
   }
   .bullets.danger li::before { background: var(--accent); }
   .bullets.success li::before { background: var(--success); }
-  .bullets li strong { font-weight: 700; color: var(--ink); }
+  .bullets li strong { font-weight: 700; }
 
+  /* TAKEAWAY */
   .takeaway {
-    margin-top: 16px;
-    padding: 14px 16px;
-    background: var(--navy-tint);
-    border-left: 4px solid var(--navy);
-    font-size: 14px;
-    line-height: 1.45;
-    font-weight: 600;
-    color: var(--ink);
+    margin-top: 16px; padding: 14px 16px; background: var(--navy-tint);
+    border-left: 4px solid var(--navy); font-size: 14px; line-height: 1.45; font-weight: 600;
   }
   .takeaway .label {
-    display: block;
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--navy);
-    font-weight: 700;
-    margin-bottom: 4px;
+    display: block; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--navy); font-weight: 700; margin-bottom: 4px;
   }
   .takeaway.warn { background: #fef5f0; border-left-color: var(--accent); }
   .takeaway.warn .label { color: var(--accent); }
   .takeaway.go { background: #edf7f1; border-left-color: var(--success); }
   .takeaway.go .label { color: var(--success); }
 
-  .criteria-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 4px 0;
-  }
+  /* CRITERIA */
+  .criteria-grid { display: flex; flex-direction: column; gap: 10px; margin: 4px 0; }
   .criterion {
-    border: 1px solid var(--rule);
-    padding: 14px 16px 14px 44px;
-    background: var(--paper);
-    position: relative;
+    border: 1px solid var(--rule); padding: 14px 16px 14px 44px;
+    background: var(--paper); position: relative;
   }
   .criterion .cnum {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 32px;
-    background: var(--navy);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Source Serif 4', serif;
-    font-weight: 600;
-    font-size: 18px;
+    position: absolute; left: 0; top: 0; bottom: 0; width: 32px;
+    background: var(--navy); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 18px;
   }
-  .criterion h4 {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 1.25;
-    margin-bottom: 6px;
-    color: var(--ink);
-  }
+  .criterion h4 { font-weight: 700; font-size: 14px; line-height: 1.25; margin-bottom: 6px; }
   .criterion h4 em { font-style: italic; color: var(--navy); }
   .criterion ul { list-style: none; }
   .criterion ul li {
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--ink-2);
-    padding: 1px 0 1px 10px;
-    position: relative;
+    font-size: 12px; line-height: 1.5; color: var(--ink-2); padding: 1px 0 1px 10px; position: relative;
   }
-  .criterion ul li::before {
-    content: "–";
-    position: absolute;
-    left: 0;
-    color: var(--ink-3);
-  }
+  .criterion ul li::before { content: "–"; position: absolute; left: 0; color: var(--ink-3); }
 
-  .decision-box {
-    border: 2px solid var(--navy);
-    padding: 20px 22px;
-    background: white;
-    margin: 4px 0;
-  }
+  /* DECISION BOX */
+  .decision-box { border: 2px solid var(--navy); padding: 20px 22px; background: white; margin: 4px 0; }
   .decision-box .q-label {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--navy);
-    margin-bottom: 10px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--navy); margin-bottom: 10px;
   }
   .decision-box .q {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 1.3;
-    margin-bottom: 18px;
-    color: var(--ink);
+    font-style: italic; font-weight: 600; font-size: 18px; line-height: 1.3; margin-bottom: 18px;
   }
-  .decision-box .arrows {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .decision-box .arm {
-    padding: 12px 14px;
-    border: 1px solid var(--rule);
-    font-size: 12px;
-  }
+  .decision-box .arrows { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .decision-box .arm { padding: 12px 14px; border: 1px solid var(--rule); }
   .decision-box .arm .if {
-    display: block;
-    font-size: 9px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 4px;
+    display: block; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;
   }
-  .decision-box .arm .then {
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.02em;
-  }
+  .decision-box .arm .then { font-weight: 700; font-size: 15px; letter-spacing: 0.02em; }
   .decision-box .arm.no { border-left: 3px solid var(--accent); }
   .decision-box .arm.no .if, .decision-box .arm.no .then { color: var(--accent); }
   .decision-box .arm.yes { border-left: 3px solid var(--success); }
   .decision-box .arm.yes .if, .decision-box .arm.yes .then { color: var(--success); }
 
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-    margin: 4px 0;
-  }
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 4px 0; }
   .data-table th {
-    text-align: left;
-    padding: 8px 10px;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: white;
-    background: var(--navy);
-    font-weight: 700;
+    text-align: left; padding: 8px 10px; font-size: 9px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: white; background: var(--navy); font-weight: 700;
   }
   .data-table td {
-    padding: 10px;
-    border-bottom: 1px solid var(--rule);
-    vertical-align: top;
-    line-height: 1.4;
+    padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.4;
   }
   .data-table tr:nth-child(even) td { background: var(--paper); }
-  .data-table td:first-child { font-weight: 700; width: 36%; color: var(--ink); }
+  .data-table td:first-child { font-weight: 700; width: 36%; }
   .data-table td:nth-child(2) { color: var(--ink-2); }
   .data-table td:last-child { white-space: nowrap; font-weight: 700; text-align: right; }
-  .data-table .move-call { color: var(--success); }
-  .data-table .move-fold { color: var(--accent); }
+  .move-call { color: var(--success); }
+  .move-fold { color: var(--accent); }
 
-  /* Compact 4-column comparison table */
-  .data-table.compare-table { font-size: 11px; }
-  .data-table.compare-table th,
-  .data-table.compare-table td { padding: 7px 6px; }
-  .data-table.compare-table th { font-size: 8px; letter-spacing: 0.08em; }
-  .data-table.compare-table td:first-child {
-    width: 18%;
-    background: var(--navy-tint);
-    color: var(--navy);
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .data-table.compare-table td:not(:first-child) {
-    font-weight: 400;
-    color: var(--ink);
-    text-align: left;
-    white-space: normal;
-  }
-  .data-table.compare-table tr:nth-child(even) td:first-child { background: var(--navy-tint); }
-
-  .flow {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin: 4px 0;
-    counter-reset: step;
-  }
+  /* FLOW / SCRIPT */
+  .flow { display: flex; flex-direction: column; gap: 0; margin: 4px 0; counter-reset: step; }
   .flow-step {
-    display: grid;
-    grid-template-columns: 30px 1fr auto;
-    gap: 12px;
-    padding: 10px 14px;
-    border: 1px solid var(--rule);
-    border-top: none;
-    align-items: center;
-    background: white;
-    counter-increment: step;
+    display: grid; grid-template-columns: 30px 1fr auto; gap: 12px;
+    padding: 10px 14px; border: 1px solid var(--rule); border-top: none;
+    align-items: center; background: white; counter-increment: step;
   }
   .flow-step:first-child { border-top: 1px solid var(--rule); }
   .flow-step::before {
-    content: counter(step);
-    width: 26px;
-    height: 26px;
-    background: var(--navy);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Source Serif 4', serif;
-    font-weight: 600;
-    font-size: 14px;
+    content: counter(step); width: 26px; height: 26px;
+    background: var(--navy); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 14px;
   }
-  .flow-step .q { font-size: 13px; font-weight: 500; line-height: 1.3; color: var(--ink); }
+  .flow-step .q { font-size: 13px; font-weight: 500; line-height: 1.3; }
   .flow-step .out {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    white-space: nowrap;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); white-space: nowrap;
   }
+  .flow-step .out.go { color: var(--success); }
 
-  .compare {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin: 4px 0;
-  }
-  .compare-card {
-    padding: 16px 18px;
-    border: 1px solid var(--rule);
-    background: white;
-  }
-  .compare-card.old {
-    background: var(--paper);
-    opacity: 0.75;
-  }
-  .compare-card.new {
-    border-left: 4px solid var(--navy);
-  }
+  /* COMPARE */
+  .compare { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 4px 0; }
+  .compare-card { padding: 16px 18px; border: 1px solid var(--rule); background: white; }
+  .compare-card.old { background: var(--paper); opacity: 0.75; }
+  .compare-card.new { border-left: 4px solid var(--navy); }
   .compare-card .tag {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    display: inline-block;
-    margin-bottom: 10px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 3px 8px; display: inline-block; margin-bottom: 10px;
   }
   .compare-card.old .tag { background: var(--ink-3); color: white; }
   .compare-card.new .tag { background: var(--navy); color: white; }
   .compare-card .statement {
-    font-family: 'Source Serif 4', serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.3;
-    color: var(--ink);
+    font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600; line-height: 1.3;
   }
   .compare-card.old .statement { text-decoration: line-through; color: var(--ink-3); }
 
-  .hero-slide {
-    justify-content: center;
-    text-align: left;
-  }
+  /* HERO QUOTE */
+  .hero-slide { justify-content: center; text-align: left; }
   .hero-slide .chapter {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 24px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--accent);
-    display: inline-block;
-    align-self: flex-start;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent); display: inline-block; align-self: flex-start;
   }
   .hero-slide .quote {
     font-family: 'Source Serif 4', Georgia, serif;
-    font-weight: 600;
-    font-style: italic;
-    font-size: clamp(26px, 7vw, 34px);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    margin-bottom: 20px;
-    color: var(--ink);
+    font-weight: 600; font-style: italic;
+    font-size: clamp(26px, 7vw, 34px); line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 20px;
   }
   .hero-slide .quote-open {
-    font-family: 'Source Serif 4', serif;
-    font-size: 48px;
-    color: var(--navy);
-    line-height: 0;
-    position: relative;
-    top: 18px;
-    margin-right: 4px;
+    font-family: 'Source Serif 4', serif; font-size: 48px; color: var(--navy);
+    line-height: 0; position: relative; top: 18px; margin-right: 4px;
   }
   .hero-slide .cite {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    font-weight: 600;
-    padding-top: 16px;
-    border-top: 1px solid var(--rule);
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 600; padding-top: 16px; border-top: 1px solid var(--rule);
   }
 
   .footnote {
-    margin-top: auto;
-    padding-top: 14px;
-    font-size: 10px;
-    color: var(--ink-3);
-    font-style: italic;
-    border-top: 1px solid var(--rule);
+    margin-top: auto; padding-top: 14px; font-size: 10px; color: var(--ink-3);
+    font-style: italic; border-top: 1px solid var(--rule);
   }
 
+  /* NAV */
   .nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: var(--nav-h);
-    background: var(--bg);
-    border-top: 2px solid var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 22px;
-    z-index: 10;
+    position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h);
+    background: var(--bg); border-top: 2px solid var(--navy);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 22px; z-index: 10;
   }
   .nav-btn {
-    background: var(--navy);
-    color: white;
-    border: none;
-    width: 44px;
-    height: 38px;
-    font-size: 18px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    line-height: 1;
+    background: var(--navy); color: white; border: none;
+    width: 44px; height: 38px; font-size: 18px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.15s ease; line-height: 1;
   }
   .nav-btn:hover:not(:disabled) { background: var(--accent); }
   .nav-btn:active:not(:disabled) { transform: scale(0.95); }
   .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; background: var(--ink-3); }
-
   .progress-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    flex: 1;
-    max-width: 240px;
+    display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; max-width: 240px;
   }
-  .progress-group .counter {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--ink-2);
-  }
+  .progress-group .counter { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--ink-2); }
   .progress-group .counter .current { color: var(--navy); }
-  .progress-group .bar {
-    width: 100%;
-    height: 3px;
-    background: var(--rule);
-  }
-  .progress-group .fill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 0.35s ease;
-  }
+  .progress-group .bar { width: 100%; height: 3px; background: var(--rule); }
+  .progress-group .fill { height: 100%; background: var(--accent); transition: width 0.35s ease; }
 
   .slide::-webkit-scrollbar { width: 2px; }
   .slide::-webkit-scrollbar-thumb { background: var(--rule); }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
@@ -654,698 +334,396 @@
 <div class="deck">
   <div class="slides" id="slides">
 
-    <!-- 01 COVER -->
+    <!-- ============================================================ -->
+    <!-- 1 · COVER                                                     -->
+    <!-- ============================================================ -->
     <div class="slide">
       <div class="slide-inner cover">
-        <div class="client">Strategy &amp; Operations / Live MTT Practice</div>
-        <h1>KP's <em>Bluff Discipline</em><br>Framework.</h1>
-        <p class="sub">A complete decision system for low-to-mid stakes live MTTs. Builds the hand correctly, filters the bluff in the moment, enforces it through redundant layers.</p>
+        <div class="client">Live MTT · Low-Mid Stakes</div>
+        <h1>The <em>Discipline</em> Framework.</h1>
+        <p class="sub">A decision system for eliminating unprofitable river bluffs and reckless stack-offs in live tournaments.</p>
         <div class="default-panel">
-          <div class="label">Operating Default</div>
+          <div class="label">The Operating Default</div>
           <div class="quote">"No river bluff jams unless proven otherwise."</div>
-          <div class="caveat">You are opting out of bluffing, not opting in. Bluffs are earned, never assumed.</div>
+          <div class="caveat">You are opting out of bluffing, not opting in.</div>
+        </div>
+        <div class="toc">
+          <strong>I</strong> S.A.F.E.R. Loop (big pots) · <strong>II</strong> River Bluff Discipline · <strong>III</strong> Mindset &amp; Anchors
         </div>
         <div class="footer">
-          <span class="date">21 Pages · Read Pre-Session</span>
-          <span class="conf">v2.0 Unified</span>
+          <span>20 Pages</span>
+          <span class="conf">Confidential</span>
         </div>
       </div>
     </div>
 
-    <!-- 02 THE THESIS -->
+    <!-- ============================================================ -->
+    <!-- SECTION I · S.A.F.E.R. LOOP                                   -->
+    <!-- ============================================================ -->
+
+    <!-- 2 · SECTION DIVIDER -->
+    <div class="slide section-slide">
+      <div class="slide-inner">
+        <div class="section-num">Section I</div>
+        <div class="section-accent"></div>
+        <h2 class="section-title">The S.A.F.E.R. <em>Loop</em></h2>
+        <p class="section-sub">Say it internally before any big decision — ≥25bb pots or facing/putting in large bets. Five gates. If any fails, stop.</p>
+      </div>
+    </div>
+
+    <!-- 3 · SAFER OVERVIEW -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Thesis</div>
-        <div class="right">02 / 21</div>
+        <div class="left"><div class="bar"></div>S.A.F.E.R. · Overview</div>
+        <div class="right">03 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">The leak has <em>two causes</em>, and both must be addressed.</h2>
-        <p class="support-line">Most frameworks fix only the river decision. That's the symptom. The hand shape that produces the punt is set on the flop.</p>
-
+        <h2 class="action-title">Memorize five letters. Run them in <em>five seconds</em> before committing chips.</h2>
         <div class="exhibit">
-          <div class="exhibit-label">Dual causation</div>
+          <div class="exhibit-label">The loop</div>
           <div class="criteria-grid">
             <div class="criterion">
-              <div class="cnum">1</div>
-              <h4>Upstream: <em>hand-shape discipline</em></h4>
-              <ul>
-                <li>Under-bet draws when equity is max</li>
-                <li>Arrive at river with no plan</li>
-                <li>Treat past equity as current entitlement</li>
-              </ul>
+              <div class="cnum">S</div>
+              <h4>Stack Reality</h4>
+              <ul><li>Who covers who? What if I'm wrong?</li></ul>
             </div>
             <div class="criterion">
-              <div class="cnum">2</div>
-              <h4>Downstream: <em>in-moment discipline</em></h4>
-              <ul>
-                <li>Bluff into capped-at-pair ranges</li>
-                <li>Rep hands you don't have in range</li>
-                <li>Fire against players who don't fold</li>
-              </ul>
+              <div class="cnum">A</div>
+              <h4>Action Credibility</h4>
+              <ul><li>Does villain's line represent real strength?</li></ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">F</div>
+              <h4>Frequency Check</h4>
+              <ul><li>How often is worse realistically doing this?</li></ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">E</div>
+              <h4>Ego Filter</h4>
+              <ul><li>Am I trying to win the hand or avoid being wrong?</li></ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">R</div>
+              <h4>Reversible Decision</h4>
+              <ul><li>Is there a lower-variance line?</li></ul>
             </div>
           </div>
         </div>
-
-        <div class="takeaway">
-          <span class="label">Framework structure</span>
-          Part I addresses hand shape. Part II addresses in-moment filters. Part III adds redundancy.
-        </div>
       </div>
     </div>
 
-    <!-- 03 PART I DIVIDER -->
+    <!-- 4 · S — STACK REALITY -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Part I · Hand-Shape Discipline</div>
-        <div class="right">03 / 21</div>
+        <div class="left"><div class="bar"></div>S · Stack Reality</div>
+        <div class="right">04 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Win the hand on the flop and turn, so the river is <em>never a punt spot</em>.</h2>
-        <p class="support-line">Most painful river decisions are the result of incorrect flop and turn play. Fix the cause and the symptom disappears.</p>
-
+        <h2 class="action-title"><em>"Who covers who? What happens if I'm wrong?"</em></h2>
         <div class="exhibit">
-          <div class="exhibit-label">Scope of Part I</div>
-          <ul class="bullets">
-            <li>Tag the table <strong>before</strong> you play a pot</li>
-            <li>Press equity <strong>when you have it</strong></li>
-            <li>Bank equity; never treat it as <strong>owed</strong></li>
-            <li>Pre-commit the river plan <strong>on the flop</strong></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 04 RULE ZERO - TAG THE TABLE -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 00 · Tag the Table</div>
-        <div class="right">04 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Before any meaningful pot, <em>you already know</em> who folds and who doesn't.</h2>
-        <p class="support-line">Villain classification is a pre-session habit, not a pre-bluff step. Default assumption if untagged: no-fold.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Three player types</div>
-          <table class="data-table">
-            <thead>
-              <tr><th>Type</th><th>Profile</th><th>Bluff Policy</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>A · Curious</td><td>Calls down, "let me see it"</td><td class="move-fold">Never</td></tr>
-              <tr><td>B · Straightforward</td><td>Strong = bet, weak = fold</td><td class="move-call">Clean spots</td></tr>
-              <tr><td>C · Thinking Reg</td><td>Capable of folding</td><td class="move-call">Selective</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="takeaway warn">
-          <span class="label">Rule Zero</span>
-          Any villain who just doubled up with top pair is Type A for the next hour. No exceptions.
-        </div>
-      </div>
-    </div>
-
-    <!-- 05 ACTIONS BY STREET -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Player Types · Actions by Street</div>
-        <div class="right">05 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">What each type <em>actually does</em>, street by street.</h2>
-        <p class="support-line">Modal behaviors, not absolute rules. Use as priors that get updated by showdowns.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Most common actions</div>
-          <table class="data-table compare-table">
-            <thead>
-              <tr><th>Street</th><th>Type A · Station</th><th>Type B · ABC</th><th>Type C · Reg</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Pre</td>
-                <td>Limps wide; min-raise or 5x+ with strong; cold-calls 3-bets</td>
-                <td>Standard 2.5–3x; 3-bets QQ+/AK; folds to 3-bets without value</td>
-                <td>Smaller opens (2–2.3x); merged 3-bets w/ bluffs; squeezes</td>
-              </tr>
-              <tr>
-                <td>Flop</td>
-                <td>Min-bets any piece; check-calls any pair/draw; slowplays sets</td>
-                <td>C-bets when hits, check-folds when misses; raises strong for protection</td>
-                <td>Multiple sizes; checks back medium hands IP; check-raises as bluff and value</td>
-              </tr>
-              <tr>
-                <td>Turn</td>
-                <td>Check-calls again with same pair; bets bigger when improved</td>
-                <td>Continues with strong, slows with marginal; folds top pair to raises</td>
-                <td>Barrels w/ value AND equity bluffs; probe bets OOP; sizes up/down by range</td>
-              </tr>
-              <tr>
-                <td>River</td>
-                <td>Snap-calls any pair; small bet w/ strong, big w/ nuts; rarely bluffs</td>
-                <td>Bets value, checks marginal; folds to big bets on scary runouts</td>
-                <td>Polarized (1/3 pot or overbet); bluffs w/ blockers; tank-folds top pair when line breaks</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 06 SIZING TELLS -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Player Types · Sizing Tells</div>
-        <div class="right">06 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Sizing variance is the <em>fastest type read</em> at the table.</h2>
-        <p class="support-line">You don't need to see cards. Sizing patterns alone separate the three types within an orbit or two.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Bet sizing by street</div>
-          <table class="data-table compare-table">
-            <thead>
-              <tr><th>Street</th><th>Type A</th><th>Type B</th><th>Type C</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Pre</td>
-                <td>Erratic — 2x, 4x, 10x by hand</td>
-                <td>Consistent 2.5–3x</td>
-                <td>Consistent small; polarized 3-bets</td>
-              </tr>
-              <tr>
-                <td>Flop</td>
-                <td>Sizing tells you hand strength directly</td>
-                <td>Consistent 50–66% regardless of hand</td>
-                <td>Same sizing across hand types — sizing is NOT a tell</td>
-              </tr>
-              <tr>
-                <td>Turn</td>
-                <td>Big = big hand; small = marginal</td>
-                <td>Same sizing as flop, or check</td>
-                <td>Strategic — bigger on cards hitting their range</td>
-              </tr>
-              <tr>
-                <td>River</td>
-                <td>Small = "want a call"; big = nuts</td>
-                <td>Sizing matches perceived strength</td>
-                <td>Polarized — 1/3 pot or 75%+/overbet, rarely between</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="takeaway">
-          <span class="label">Quickest read</span>
-          Erratic sizing = A · Same sizing every time = B · Multiple deliberate sizes = C
-        </div>
-      </div>
-    </div>
-
-    <!-- 07 DIAGNOSTIC BEHAVIORS -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Player Types · Diagnostic Behaviors</div>
-        <div class="right">07 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">The behaviors that <em>actually separate</em> the three types.</h2>
-        <p class="support-line">If you only watch a few things, watch these. Each row alone is often enough to classify.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">High-signal behaviors</div>
-          <table class="data-table compare-table">
-            <thead>
-              <tr><th>Behavior</th><th>Type A</th><th>Type B</th><th>Type C</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Folds river after calling 2 streets</td>
-                <td>Almost never</td>
-                <td>Sometimes</td>
-                <td>Yes, when line breaks</td>
-              </tr>
-              <tr>
-                <td>Tanks then calls</td>
-                <td>Often</td>
-                <td>Rarely</td>
-                <td>Rarely (tanks then folds)</td>
-              </tr>
-              <tr>
-                <td>Snap-calls river</td>
-                <td>Yes, with any pair</td>
-                <td>With clear bluff-catchers</td>
-                <td>Only on obvious spots</td>
-              </tr>
-              <tr>
-                <td>Bluffs river</td>
-                <td>Almost never</td>
-                <td>Rarely, obviously</td>
-                <td>Yes, with blockers</td>
-              </tr>
-              <tr>
-                <td>Slowplays monsters</td>
-                <td>Often (calls down)</td>
-                <td>Rarely (bets to protect)</td>
-                <td>Sometimes (deliberate)</td>
-              </tr>
-              <tr>
-                <td>3-bets preflop</td>
-                <td>Only AA/KK/QQ/AK</td>
-                <td>QQ+/AK, balanced</td>
-                <td>Merged, includes bluffs</td>
-              </tr>
-              <tr>
-                <td>Sizing variance</td>
-                <td>High (emotion-driven)</td>
-                <td>Low (one default)</td>
-                <td>High (situation-driven)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="takeaway warn">
-          <span class="label">Default if uncertain</span>
-          Treat unknowns as Type A. You need positive evidence to promote them.
-        </div>
-      </div>
-    </div>
-
-    <!-- 08 PRESS EQUITY -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 01 · Press Equity When You Have It</div>
-        <div class="right">08 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Big draws are <em>bet bigger</em>, not smaller. Under-betting is how punt spots are born.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">When you have 12+ outs</div>
-          <ul class="bullets success">
-            <li>Bet <strong>70–80% pot</strong> on wet boards</li>
-            <li>You are often favorite or co-favorite</li>
-            <li>Build pot while equity is <strong>real</strong></li>
-            <li>Charge weaker draws, set up turn barrel</li>
-          </ul>
-        </div>
-
-        <div class="exhibit">
-          <div class="exhibit-label">What small probes do instead</div>
+          <div class="exhibit-label">Key logic</div>
           <ul class="bullets danger">
-            <li>Get called by everything</li>
-            <li>Create no fold equity</li>
-            <li>Build a pot you can't win without hitting</li>
+            <li>Covered = <strong>elimination risk → tighten stacking thresholds</strong></li>
+            <li>Ask: Am I playing for chips or for my tournament life?</li>
+            <li>Am I risking my tournament life to fold out one pair?</li>
           </ul>
         </div>
-
-        <div class="takeaway">
-          <span class="label">Key insight</span>
-          You don't earn the right to bluff the river by under-betting the flop. You forfeit it.
-        </div>
-      </div>
-    </div>
-
-    <!-- 06 EQUITY IS BANKED -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 02 · Equity Is Banked, Not Owed</div>
-        <div class="right">09 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Flop equity is an <em>opportunity</em> on the flop. On the river, <strong>it is zero</strong>.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">The trap</div>
-          <div class="compare">
-            <div class="compare-card old">
-              <span class="tag">Feeling</span>
-              <div class="statement">"I had 15 outs. I deserve this pot."</div>
-            </div>
-            <div class="compare-card new">
-              <span class="tag">Reality</span>
-              <div class="statement">9-high is 9-high. The outs were earlier.</div>
-            </div>
-          </div>
-        </div>
-
         <div class="takeaway warn">
-          <span class="label">The signal</span>
-          When you notice "but I had so much equity" or "I've put so much in" — that is the tell you are about to punt. Check-fold instead.
+          <span class="label">Reality</span>
+          Live players call off with top pair, overpairs, and "I don't believe you." You are risking everything to fold out hands that don't fold.
         </div>
       </div>
     </div>
 
-    <!-- 07 PRE-COMMIT -->
+    <!-- 5 · A — ACTION CREDIBILITY -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Rule 03 · Pre-Commit on the Flop</div>
-        <div class="right">10 / 21</div>
+        <div class="left"><div class="bar"></div>A · Action Credibility</div>
+        <div class="right">05 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Decide your river plan <em>on the flop</em>, before emotion arrives.</h2>
-        <p class="support-line">The moment you arrive at the river is when ego, sunk cost, and frustration peak. Make the decision earlier, when you're calm.</p>
-
+        <h2 class="action-title"><em>"Does villain's line represent real strength?"</em></h2>
         <div class="exhibit">
-          <div class="exhibit-label">On every flop you continue, decide</div>
-          <ul class="bullets">
-            <li>If I <strong>hit</strong>, what's my sizing on each street?</li>
-            <li>If I <strong>miss</strong>, am I barreling or giving up?</li>
-            <li>What turn cards <strong>change the plan</strong>?</li>
+          <div class="exhibit-label">Credible strength lines in live play</div>
+          <ul class="bullets danger">
+            <li>Donk + call-off, check-raise jam, river raise = <strong>polarized, usually value-heavy live</strong></li>
+            <li>Older/tight players → heavily weighted to value</li>
           </ul>
         </div>
+        <div class="exhibit">
+          <div class="exhibit-label">Examples — all three were credible strength lines</div>
+          <ul class="bullets">
+            <li>A99 donk → strong Ax/9x/traps</li>
+            <li>Turn lead + jam → nutted range</li>
+            <li>River raise (tight player) → almost never bluff</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
+    <!-- 6 · F — FREQUENCY CHECK -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>F · Frequency Check</div>
+        <div class="right">06 / 20</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title"><em>"How often is worse realistically doing this?"</em></h2>
+        <p class="support-line">Force a number. If <strong>&lt;30% worse hands continue → DO NOT stack off.</strong></p>
+        <div class="exhibit">
+          <div class="exhibit-label">Examples</div>
+          <table class="data-table">
+            <thead><tr><th>Hand</th><th>What worse jams/calls?</th><th>Stack off?</th></tr></thead>
+            <tbody>
+              <tr><td>A99</td><td>Almost none</td><td class="move-fold">No</td></tr>
+              <tr><td>Set of 6s</td><td>Basically zero</td><td class="move-fold">No</td></tr>
+              <tr><td>River shove</td><td>None</td><td class="move-fold">No</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="takeaway warn">
+          <span class="label">Also applies to bluffing</span>
+          Before jamming river, list what calls you. If the answer is top pair, two pair, sets — and those hands are common — your bluff is bad.
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 · E — EGO FILTER -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>E · Ego Filter</div>
+        <div class="right">07 / 20</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title"><em>"Am I trying to win the hand… or avoid being wrong?"</em></h2>
+        <div class="exhibit">
+          <div class="exhibit-label">Red flags</div>
+          <ul class="bullets danger">
+            <li>"He can't have it again"</li>
+            <li>"I'm under-repped"</li>
+            <li>"I'll trap / I'll show him"</li>
+          </ul>
+        </div>
+        <div class="takeaway warn">
+          <span class="label">Reality check</span>
+          Your river punt is pure ego override after correctly suspecting a boat.
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 · R — REVERSIBLE DECISION + HARD RULES -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>R · Reversible Decision + Hard Rules</div>
+        <div class="right">08 / 20</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title"><em>"Is there a lower-variance line?"</em> If yes → take it unless you have strong edge.</h2>
+        <div class="exhibit">
+          <div class="exhibit-label">Lower-variance defaults</div>
+          <ul class="bullets success">
+            <li>Call > raise</li>
+            <li>Control pot > inflate</li>
+            <li>Preserve stack > maximize thin value</li>
+          </ul>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-label">Three non-negotiable hard rules</div>
+          <ul class="bullets">
+            <li><strong>One-pair = no stack-off vs coverage</strong> — unless you beat value range clearly or villain is proven spewy</li>
+            <li><strong>If you raise and get jammed</strong>, ask: what worse does this? If unclear or none → pause, don't snap</li>
+            <li><strong>River raises at low stakes = value until proven otherwise.</strong> People under-bluff massively, especially tight/older profiles</li>
+          </ul>
+        </div>
         <div class="takeaway">
-          <span class="label">Why this works</span>
-          Pre-commitment removes the in-moment decision. The plan exists. You execute, not deliberate.
+          <span class="label">Your one-line table mantra</span>
+          "Covered + strong line + no worse calls = don't stack off."
         </div>
       </div>
     </div>
 
-    <!-- 08 PART II DIVIDER -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Part II · In-Moment Checks</div>
-        <div class="right">11 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">When Part I fails and you still feel the urge to bluff, <em>these five checks catch you</em>.</h2>
-        <p class="support-line">Run them in order at the table. If any one says "no," the bluff is off. Takes about 10 seconds.</p>
+    <!-- ============================================================ -->
+    <!-- SECTION II · RIVER BLUFF DISCIPLINE                           -->
+    <!-- ============================================================ -->
 
-        <div class="exhibit">
-          <div class="exhibit-label">The five checks</div>
-          <ul class="bullets">
-            <li><strong>What has villain already done this hand?</strong> Certain earlier actions mean "I have a pair and I'm not folding."</li>
-            <li><strong>Can villain actually have a weak hand here?</strong> Do I hold cards that block their strong hands? Can I name real hands they'd fold?</li>
-            <li><strong>The gut check:</strong> would a typical live tournament player fold top pair in this spot?</li>
-            <li><strong>Does my story make sense?</strong> If I actually had the hand I'm repping, would I have played it this way — and is it even in my range?</li>
-            <li><strong>What's the move instead?</strong> Check-fold, or a small bet, beats a stack-off bluff every time.</li>
-          </ul>
-        </div>
+    <!-- 9 · SECTION DIVIDER -->
+    <div class="slide section-slide">
+      <div class="slide-inner">
+        <div class="section-num">Section II</div>
+        <div class="section-accent"></div>
+        <h2 class="section-title">River Bluff <em>Discipline</em></h2>
+        <p class="section-sub">River-specific filters. Use these when deciding whether to bluff jam — not whether to call one.</p>
       </div>
     </div>
 
-    <!-- 09 AUTO-BLOCKERS -->
+    <!-- 10 · AUTO-BLOCKERS -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Filter 01 · Auto-Blockers</div>
-        <div class="right">12 / 21</div>
+        <div class="left"><div class="bar"></div>Auto-Blockers</div>
+        <div class="right">10 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">If <em>any</em> signal from earlier streets occurred, <strong>do not jam the river</strong>.</h2>
-        <p class="support-line">Each independently indicates villain is committed to a one-pair hand they will not release.</p>
-
+        <h2 class="action-title">If they put money in on <em>two streets</em>, you don't bluff them off it.</h2>
+        <p class="support-line">Each signal independently indicates villain has committed to a hand they will not release.</p>
         <div class="exhibit">
-          <div class="exhibit-label">Disqualifying signals</div>
+          <div class="exhibit-label">Instant NO BLUFF if any occurred</div>
           <ul class="bullets danger">
             <li>Villain <strong>check-called flop AND turn</strong></li>
             <li>Villain <strong>led turn</strong></li>
             <li>Villain <strong>raised turn</strong></li>
-            <li>Villain is a <strong>Type A "Curious Caller"</strong></li>
-            <li>Villain <strong>doubled up recently</strong> with a weak made hand</li>
+            <li>Villain profiles as a <strong>"curious caller"</strong></li>
           </ul>
         </div>
-
-        <div class="takeaway warn">
-          <span class="label">Translation</span>
-          They have a pair and are not folding it. Representation is worth zero against a hand, not a range.
+        <div class="takeaway">
+          <span class="label">Key Takeaway</span>
+          They have a pair, are emotionally committed, and call "to see it."
         </div>
       </div>
     </div>
 
-    <!-- 10 HARD CRITERIA -->
+    <!-- 11 · THE HARD RULE (3 criteria) -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Filter 02 · The Three Hard Criteria</div>
-        <div class="right">13 / 21</div>
+        <div class="left"><div class="bar"></div>The Hard Rule</div>
+        <div class="right">11 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Bluffs are justified only when <em>all three</em> are satisfied simultaneously.</h2>
-
+        <h2 class="action-title">Bluffing is only justified when <em>all three</em> criteria are satisfied.</h2>
         <div class="exhibit">
           <div class="exhibit-label">Required conditions</div>
           <div class="criteria-grid">
             <div class="criterion">
               <div class="cnum">I</div>
-              <h4>Villain's range is <em>capped</em></h4>
+              <h4>Villain's range is capped</h4>
               <ul>
                 <li>No strong hands likely</li>
-                <li>Mostly one-pair or weaker</li>
-                <li>River card changed <em>their</em> range, not just yours</li>
+                <li>Mostly one-pair / weak holdings</li>
               </ul>
             </div>
             <div class="criterion">
               <div class="cnum">II</div>
-              <h4>You hold <em>relevant blockers</em></h4>
+              <h4>You hold relevant blockers</h4>
               <ul>
-                <li>Block strong calling hands</li>
-                <li>Unblock folding hands</li>
+                <li>Block strong hands</li>
+                <li>Unblock folds</li>
               </ul>
             </div>
             <div class="criterion">
               <div class="cnum">III</div>
-              <h4>You can name <em>≥5 realistic folds</em></h4>
+              <h4>You can name ≥5 realistic folds</h4>
               <ul>
-                <li>Weak top pair, second pair</li>
+                <li>Weak top pair</li>
+                <li>Second pair</li>
                 <li>Missed draws that gave up</li>
-                <li>"I just don't believe you" is not a fold</li>
               </ul>
             </div>
           </div>
         </div>
-
         <div class="takeaway warn">
           <span class="label">If any condition fails</span>
-          Do not bluff.
+          Do not bluff. Prove it WILL work — not that it could.
         </div>
       </div>
     </div>
 
-    <!-- 11 WSOP SHORTCUT -->
+    <!-- 12 · BOARD + STORY + MISSED DRAWS -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Filter 03 · The Gut Check</div>
-        <div class="right">14 / 21</div>
+        <div class="left"><div class="bar"></div>Board, Story &amp; Missed Draws</div>
+        <div class="right">12 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">One question resolves <em>the majority</em> of marginal bluff spots.</h2>
-
+        <h2 class="action-title">Both board texture <em>and</em> betting line must support the story — with credible missed draws.</h2>
         <div class="exhibit">
-          <div class="exhibit-label">Decision framework</div>
-          <div class="decision-box">
-            <div class="q-label">Ask yourself</div>
-            <div class="q">"Would a random $1K WSOP player fold top pair here?"</div>
-            <div class="arrows">
-              <div class="arm no">
-                <span class="if">If No</span>
-                <span class="then">Check</span>
-              </div>
-              <div class="arm yes">
-                <span class="if">If Yes</span>
-                <span class="then">Proceed to Filters 04–05</span>
-              </div>
+          <div class="exhibit-label">Dual requirement</div>
+          <div class="criteria-grid">
+            <div class="criterion">
+              <div class="cnum">I</div>
+              <h4>Board is scary <em>for them</em></h4>
+              <ul><li>Not just "looks scary" to you</li></ul>
+            </div>
+            <div class="criterion">
+              <div class="cnum">II</div>
+              <h4>Your line makes sense</h4>
+              <ul><li>Passive line → sudden jam = not believed</li></ul>
             </div>
           </div>
         </div>
-
-        <p class="support-line">Emotionally neutral. Pool-calibrated. Faster than the three criteria when the clock is ticking.</p>
-      </div>
-    </div>
-
-    <!-- 12 RANGE CHECK -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Filter 04 · Rep Hands in Your Range</div>
-        <div class="right">15 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">You can only rep hands your <em>line</em> tells and your <em>range</em> contains.</h2>
-        <p class="support-line">Most bluffs fail not because villain decoded them, but because the story was imaginary to begin with.</p>
-
         <div class="exhibit">
-          <div class="exhibit-label">Two diagnostic questions</div>
+          <div class="exhibit-label">Missed draws check — all three must be true</div>
           <ul class="bullets">
-            <li>"If I actually had that hand, <strong>would I bet this size</strong> on this street?"</li>
-            <li>"Is that hand even <strong>in my perceived range</strong> from this position?"</li>
+            <li>Clear <strong>missed draws</strong> exist on the board</li>
+            <li>Villain's range <strong>can contain</strong> those draws</li>
+            <li>You can <strong>represent them logically</strong> given your line</li>
           </ul>
         </div>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Common self-deception</div>
-          <div class="compare">
-            <div class="compare-card old">
-              <span class="tag">Wished</span>
-              <div class="statement">"I'm repping KJ / AJ / overpair."</div>
-            </div>
-            <div class="compare-card new">
-              <span class="tag">Actual</span>
-              <div class="statement">Your UTG range doesn't contain those hands, and overpairs bet bigger.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="takeaway">
-          <span class="label">And remember</span>
-          Against Type A villains, representation is worth zero anyway. You are bluffing a hand, not a range.
-        </div>
-      </div>
-    </div>
-
-    <!-- 13 REPLACEMENT MOVE -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Filter 05 · The Replacement Move</div>
-        <div class="right">16 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">When the filters fail, the default is <em>not "shove anyway"</em> — it's one of two moves.</h2>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Default replacements</div>
-          <ul class="bullets">
-            <li><strong>Check and give up.</strong> Losing the pot you were losing anyway is free.</li>
-            <li><strong>Small blocker bet (25–33% pot).</strong> Folds out air, gets called by the same hands that call a shove — at 2–3x less cost.</li>
-          </ul>
-        </div>
-
-        <div class="takeaway go">
-          <span class="label">Reframe</span>
-          You are not missing spots. You are removing losing plays. Saving a stack is earning a stack.
-        </div>
-      </div>
-    </div>
-
-    <!-- 14 PART III DIVIDER -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Part III · Backup Rules</div>
-        <div class="right">17 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">When Parts I and II fail — <em>and some night they will</em> — these three backup rules catch you.</h2>
-        <p class="support-line">Tilt, momentum, "this one just feels right" — any single rule can break under pressure. Stacked rules do not all break at once.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Three backup rules</div>
-          <ul class="bullets">
-            <li><strong>Flip the question.</strong> Don't ask "could this work?" — ask "can I prove this WILL work?"</li>
-            <li><strong>Name what's at stake.</strong> Am I putting my tournament life at risk to fold out one pair?</li>
-            <li><strong>Remember the last time.</strong> Every bluff that got snapped off was obvious to them, not you.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 15 REVERSE BURDEN -->
-    <div class="slide">
-      <div class="slide-head">
-        <div class="left"><div class="bar"></div>Backup 01 · Flip the Question</div>
-        <div class="right">18 / 21</div>
-      </div>
-      <div class="slide-inner">
-        <h2 class="action-title">Stop asking "<em>could this work?</em>" Start asking "<em>can I prove this will work?</em>"</h2>
-        <p class="support-line">"Could" is a low bar. Almost any bluff "could" work. "Will" forces you to show your evidence.</p>
-
-        <div class="exhibit">
-          <div class="exhibit-label">Shift the default</div>
-          <div class="compare">
-            <div class="compare-card old">
-              <span class="tag">Old question</span>
-              <div class="statement">"This could work."</div>
-            </div>
-            <div class="compare-card new">
-              <span class="tag">New question</span>
-              <div class="statement">"Prove to me this WILL work."</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="exhibit">
-          <div class="exhibit-label">To proceed, you must show</div>
-          <ul class="bullets">
-            <li>Villain is <strong>capable of folding</strong> in this spot</li>
-            <li>Your betting line <strong>looks like a real value hand</strong> to them</li>
-            <li>You can <strong>name specific hands</strong> they'd fold</li>
-          </ul>
-        </div>
-
         <div class="takeaway warn">
-          <span class="label">If you can't prove all three</span>
-          No bluff. Not being sure isn't the same as having a green light.
+          <span class="label">The test</span>
+          Is this a complicated bluff against a simple player? If yes — don't do it. You're thinking ranges and blockers. They're thinking "I have a pair."
         </div>
       </div>
     </div>
 
-    <!-- 16 STACK RISK FILTER -->
+    <!-- 13 · CALL TYPE CLASSIFICATION -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Backup 02 · Name What's at Stake</div>
-        <div class="right">19 / 21</div>
+        <div class="left"><div class="bar"></div>Call Type Classification</div>
+        <div class="right">13 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Ask: <em>"Am I risking my tournament life to fold out one pair?"</em></h2>
-        <p class="support-line">If yes → <strong>no bluff</strong>. Reframes the shove from "heroic" to "absurd."</p>
-
+        <h2 class="action-title">Classify villain <em>before</em> bluffing. Your mistake: treating Type A like Type C.</h2>
         <div class="exhibit">
-          <div class="exhibit-label">Live players will call off with</div>
-          <ul class="bullets danger">
-            <li>Top pair</li>
-            <li>Overpairs</li>
-            <li>"I don't believe you"</li>
-            <li>Pair + emotional commitment from earlier streets</li>
-          </ul>
-        </div>
-
-        <div class="takeaway warn">
-          <span class="label">The reality</span>
-          You are risking everything to fold out hands that don't fold.
+          <div class="exhibit-label">Three player types</div>
+          <table class="data-table">
+            <thead><tr><th>Type</th><th>Profile</th><th>Bluff Policy</th></tr></thead>
+            <tbody>
+              <tr><td>A · Curious Caller</td><td>Calls down, doesn't fold, "let me see it" — <strong>most common</strong></td><td class="move-fold">Never big</td></tr>
+              <tr><td>B · Straightforward</td><td>Bets when strong, gives up when weak</td><td class="move-call">Clean spots only</td></tr>
+              <tr><td>C · Thinking Reg</td><td>Capable of folding, understands ranges</td><td class="move-call">Selective</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
-    <!-- 17 PAIN MEMORY ANCHOR -->
+    <!-- 14 · TRUTH TABLE (calling side) -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Backup 03 · Remember the Last Time</div>
-        <div class="right">20 / 21</div>
+        <div class="left"><div class="bar"></div>Population Truth Table</div>
+        <div class="right">14 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">Every time you got snapped off bluffing, <em>it looked obvious to them</em>.</h2>
-
+        <h2 class="action-title">Map villain's line to its <em>most likely meaning</em> — then adjust.</h2>
+        <p class="support-line">When YOU face bets — use this.</p>
         <div class="exhibit">
-          <div class="exhibit-label">Because</div>
-          <ul class="bullets danger">
-            <li>They had a pair</li>
-            <li>They never considered folding</li>
-            <li>They were not reading your story — they were reading their cards</li>
-          </ul>
+          <div class="exhibit-label">Decision reference</div>
+          <table class="data-table">
+            <thead><tr><th>Line</th><th>Typical Meaning</th><th>Response</th></tr></thead>
+            <tbody>
+              <tr><td>Small river bet</td><td>Weak / probing</td><td class="move-call">Call wider</td></tr>
+              <tr><td>Turn aggression</td><td>Usually strong</td><td class="move-fold">Fold more</td></tr>
+              <tr><td>River jam</td><td>Very strong</td><td class="move-fold">Overfold</td></tr>
+              <tr><td>Passive → big river</td><td>Often bluff</td><td class="move-call">Call more</td></tr>
+            </tbody>
+          </table>
         </div>
-
-        <div class="takeaway">
-          <span class="label">Burn this in</span>
-          The hero shove feels complex to you. It is a call decision to them. That asymmetry is the leak.
-        </div>
+        <div class="footnote">Source: Live low/mid-stakes population tendencies.</div>
       </div>
     </div>
 
-    <!-- 18 FINAL STACK + CORE HEURISTIC -->
+    <!-- 15 · THE 5-SECOND RIVER SCRIPT -->
     <div class="slide">
       <div class="slide-head">
-        <div class="left"><div class="bar"></div>Combined Stack · Final Calibration</div>
-        <div class="right">21 / 21</div>
+        <div class="left"><div class="bar"></div>The 5-Second River Script</div>
+        <div class="right">15 / 20</div>
       </div>
       <div class="slide-inner">
-        <h2 class="action-title">When you feel the urge to jam, <em>run the stack</em>.</h2>
-
+        <h2 class="action-title">Execute this <em>four-question sequence</em> before every river jam.</h2>
         <div class="exhibit">
-          <div class="exhibit-label">The simple stack — any "yes" cancels the bluff</div>
+          <div class="exhibit-label">Decision sequence</div>
           <div class="flow">
             <div class="flow-step">
-              <div class="q">Did he put money in twice?</div>
+              <div class="q">Did he show strength earlier?</div>
               <div class="out">Yes → No Bluff</div>
             </div>
             <div class="flow-step">
@@ -1353,30 +731,173 @@
               <div class="out">No → No Bluff</div>
             </div>
             <div class="flow-step">
-              <div class="q">Is the river card a brick to his range?</div>
-              <div class="out">Yes → No Bluff</div>
+              <div class="q">Can I name 5 folds?</div>
+              <div class="out">No → No Bluff</div>
             </div>
             <div class="flow-step">
-              <div class="q">Am I risking stack to fold one pair?</div>
-              <div class="out">Yes → No Bluff</div>
-            </div>
-            <div class="flow-step">
-              <div class="q">Am I feeling "owed" for prior equity?</div>
-              <div class="out">Yes → No Bluff</div>
+              <div class="q">Does my line make sense?</div>
+              <div class="out">No → No Bluff</div>
             </div>
           </div>
         </div>
-
-        <div class="exhibit" style="margin-top:18px;">
-          <div class="exhibit-label">The one line to remember</div>
-          <div class="decision-box">
-            <div class="q">"Tag the table, press equity when you have it, bank it when you don't, bluff only when you can prove it — and pre-commit the plan on the flop."</div>
-          </div>
-        </div>
-
         <div class="takeaway go">
-          <span class="label">Winning adjustment</span>
-          Bluff rarely. Value-bet relentlessly. Fold often. Protect the stack that makes the rest possible.
+          <span class="label">If all 4 pass</span>
+          You may bluff. Expect this to be rare — that is correct.
+        </div>
+      </div>
+    </div>
+
+    <!-- 16 · RIVER JAM BAN + TURN DISCIPLINE -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>River Jam Ban &amp; Turn Discipline</div>
+        <div class="right">16 / 20</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Temporary training tool: <em>ban all river bluff jams</em> unless checked to twice.</h2>
+        <div class="exhibit">
+          <div class="exhibit-label">Allowed</div>
+          <ul class="bullets success">
+            <li>Check → check → jam</li>
+            <li>Clear weakness</li>
+          </ul>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-label">Not allowed</div>
+          <ul class="bullets danger">
+            <li>Bet/call → jam</li>
+            <li>Call/call → jam</li>
+            <li>Any strength shown</li>
+          </ul>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-label">Turn discipline rule</div>
+          <ul class="bullets">
+            <li>If you call turn with a draw, you are <strong>NOT obligated</strong> to bluff river</li>
+            <li>You are allowed to miss → <strong>check/fold</strong></li>
+            <li>Right now you're "invested" → feel forced to bluff. <strong>Break that link.</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION III · MINDSET & ANCHORS                               -->
+    <!-- ============================================================ -->
+
+    <!-- 17 · SECTION DIVIDER -->
+    <div class="slide section-slide">
+      <div class="slide-inner">
+        <div class="section-num">Section III</div>
+        <div class="section-accent"></div>
+        <h2 class="section-title">Mindset &amp; <em>Anchors</em></h2>
+        <p class="section-sub">Not decision tools — discipline tools. Use between sessions and in the moment when emotion overrides logic.</p>
+      </div>
+    </div>
+
+    <!-- 18 · NEW DEFAULT + BURDEN OF PROOF -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Reset Your Default</div>
+        <div class="right">18 / 20</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Replace the reflex default. <em>Checking</em> is the new baseline.</h2>
+        <div class="exhibit">
+          <div class="exhibit-label">Before vs after</div>
+          <div class="compare">
+            <div class="compare-card old">
+              <span class="tag">Old — Current Default</span>
+              <div class="statement">Miss draw → jam</div>
+            </div>
+            <div class="compare-card new">
+              <span class="tag">New — Target Default</span>
+              <div class="statement">Miss draw → check and give up</div>
+            </div>
+          </div>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-label">Flip the burden of proof</div>
+          <div class="compare">
+            <div class="compare-card old">
+              <span class="tag">Old logic</span>
+              <div class="statement">"This could work."</div>
+            </div>
+            <div class="compare-card new">
+              <span class="tag">New logic</span>
+              <div class="statement">"Prove to me this WILL work."</div>
+            </div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="label">Reframe</span>
+          You are not missing spots. You are removing losing plays.
+        </div>
+      </div>
+    </div>
+
+    <!-- 19 · PAIN ANCHORS + OPTIONAL TOOLS -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Pain Anchors &amp; Optional Rules</div>
+        <div class="right">19 / 20</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">Every time you got snapped off bluffing — <em>it looked obvious to them.</em></h2>
+        <div class="exhibit">
+          <div class="exhibit-label">Because</div>
+          <ul class="bullets danger">
+            <li>They had a pair</li>
+            <li>They never considered folding</li>
+          </ul>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-label">Optional discipline tool</div>
+          <ul class="bullets">
+            <li><strong>One meaningful bluff attempt per orbit.</strong> Forces selectivity and patience.</li>
+          </ul>
+        </div>
+        <div class="takeaway">
+          <span class="label">Core heuristic</span>
+          "If they've put money in twice, they're not folding a pair." Not always true — profitable to assume.
+        </div>
+      </div>
+    </div>
+
+    <!-- 20 · COMBINED FLOW + FINAL CALIBRATION -->
+    <div class="slide">
+      <div class="slide-head">
+        <div class="left"><div class="bar"></div>Combined Flow · Final Calibration</div>
+        <div class="right">20 / 20</div>
+      </div>
+      <div class="slide-inner">
+        <h2 class="action-title">When you feel the urge to commit chips, <em>run the full stack.</em> If 2+ red flags → stop.</h2>
+        <div class="exhibit">
+          <div class="exhibit-label">S.A.F.E.R. — 5-second checklist</div>
+          <div class="flow">
+            <div class="flow-step"><div class="q">Covered?</div><div class="out">→ Tighten</div></div>
+            <div class="flow-step"><div class="q">Strong line?</div><div class="out">→ Respect</div></div>
+            <div class="flow-step"><div class="q">Worse continues?</div><div class="out">→ Quantify</div></div>
+            <div class="flow-step"><div class="q">Ego talking?</div><div class="out">→ Pause</div></div>
+            <div class="flow-step"><div class="q">Lower variance option?</div><div class="out go">→ Take it</div></div>
+          </div>
+        </div>
+        <div class="exhibit">
+          <div class="exhibit-label">Final calibration</div>
+          <div class="compare">
+            <div class="compare-card old">
+              <span class="tag">Right now</span>
+              <div class="statement">You are forcing bluffs in low-fold environments</div>
+            </div>
+            <div class="compare-card new">
+              <span class="tag">Winning adjustment</span>
+              <div class="statement">Bluff rarely, value bet relentlessly, fold often</div>
+            </div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="label">Why this works</span>
+          Your issue is not knowledge — it's threshold discipline under emotion. You recognize danger, then override it. This framework forces a gate before commitment.
         </div>
       </div>
     </div>
@@ -1387,7 +908,7 @@
 <nav class="nav">
   <button class="nav-btn" id="prev" aria-label="Previous">‹</button>
   <div class="progress-group">
-    <div class="counter"><span class="current" id="current">01</span> / <span id="total">18</span></div>
+    <div class="counter"><span class="current" id="current">01</span> / <span id="total">20</span></div>
     <div class="bar"><div class="fill" id="fill"></div></div>
   </div>
   <button class="nav-btn" id="next" aria-label="Next">›</button>
@@ -1402,8 +923,8 @@
   const fillEl = document.getElementById('fill');
   const slides = slidesEl.querySelectorAll('.slide');
   const total = slides.length;
-  let idx = 0;
   totalEl.textContent = String(total).padStart(2,'0');
+  let idx = 0;
 
   function render() {
     slidesEl.style.transform = `translateX(-${idx * 100}%)`;
